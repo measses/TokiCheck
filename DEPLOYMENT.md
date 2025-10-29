@@ -20,13 +20,15 @@ Vercel is the recommended platform for deploying TOKİCheck as it's optimized fo
 
 #### Step 2: Configure Build Settings
 
-Vercel should auto-detect these settings, but verify:
+Vercel should auto-detect these settings:
 
-- **Framework Preset**: Next.js
-- **Root Directory**: `./` (leave empty, monorepo handled automatically)
-- **Build Command**: `npm run vercel-build` (or leave default)
-- **Output Directory**: `apps/web/.next` (auto-detected)
-- **Install Command**: `npm install`
+- **Framework Preset**: Next.js (auto-detected ✓)
+- **Root Directory**: `./` (leave empty)
+- **Build Command**: Leave default - Vercel will use `vercel-build` from `apps/web/package.json`
+- **Output Directory**: `apps/web/.next` (auto-detected ✓)
+- **Install Command**: `npm install` (default)
+
+**Note**: The monorepo structure is automatically handled. Vercel detects Next.js in `apps/web` and runs the `vercel-build` script which builds dependencies first.
 
 #### Step 3: Environment Variables (Optional)
 
@@ -193,23 +195,25 @@ Before deploying to production:
 
 ## 🐛 Troubleshooting
 
-### Build Fails with "cd: apps/web: No such file or directory"
+### Build Fails with "Missing script: vercel-build"
 
-**Problem**: Vercel can't find the apps/web directory during build.
+**Problem**: Vercel detects Next.js automatically and looks for `vercel-build` script in the workspace, not root.
 
-**Solution**: This is now fixed in the latest version. Make sure:
-1. `vercel.json` uses `npm run vercel-build` as build command
-2. `.vercelignore` is minimal (only excludes tests)
-3. Pull latest changes from main branch
+**Solution**: This is now fixed. The `vercel-build` script is defined in `apps/web/package.json` and:
+1. Navigates to repository root
+2. Builds dependency packages (types → engine)
+3. Builds the Next.js app
 
-If still failing, verify `vercel.json`:
+The script in `apps/web/package.json`:
 ```json
 {
-  "buildCommand": "npm run vercel-build",
-  "installCommand": "npm install",
-  "outputDirectory": "apps/web/.next"
+  "scripts": {
+    "vercel-build": "cd ../.. && npm run build:packages && cd apps/web && npm run build"
+  }
 }
 ```
+
+**Why this works**: Vercel auto-detects Next.js and runs commands from the workspace directory. The script navigates to root to build dependencies first.
 
 ### Build Fails with "Module not found"
 
