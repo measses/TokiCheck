@@ -193,6 +193,24 @@ Before deploying to production:
 
 ## 🐛 Troubleshooting
 
+### Build Fails with "cd: apps/web: No such file or directory"
+
+**Problem**: Vercel can't find the apps/web directory during build.
+
+**Solution**: This is now fixed in the latest version. Make sure:
+1. `vercel.json` uses `npm run vercel-build` as build command
+2. `.vercelignore` is minimal (only excludes tests)
+3. Pull latest changes from main branch
+
+If still failing, verify `vercel.json`:
+```json
+{
+  "buildCommand": "npm run vercel-build",
+  "installCommand": "npm install",
+  "outputDirectory": "apps/web/.next"
+}
+```
+
 ### Build Fails with "Module not found"
 
 **Solution**: Ensure packages are built first:
