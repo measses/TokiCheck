@@ -7,7 +7,6 @@ import {
   IncomeProjectionConfig,
   IncomeProjection,
   CalculatedIncome,
-  HouseholdMemberIncome,
 } from '@tokicheck/types';
 
 /**
