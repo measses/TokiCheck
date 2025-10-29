@@ -1,0 +1,47 @@
+{
+  "name": "tokicheck",
+  "version": "0.1.0",
+  "private": true,
+  "description": "TOKİCheck - Rent to Installment decision support and scenario simulator",
+  "keywords": [
+    "toki",
+    "housing",
+    "calculator",
+    "turkey",
+    "installment",
+    "rent",
+    "financial-planning"
+  ],
+  "homepage": "https://github.com/measses/TokiCheck#readme",
+  "bugs": {
+    "url": "https://github.com/measses/TokiCheck/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/measses/TokiCheck.git"
+  },
+  "license": "MIT",
+  "author": "TOKİCheck Contributors",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace=apps/web",
+    "build": "npm run build --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present",
+    "lint": "npm run lint --workspaces --if-present",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md}\"",
+    "clean": "rm -rf node_modules apps/*/node_modules packages/*/node_modules apps/*/.next apps/*/dist packages/*/dist"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "prettier": "^3.2.4",
+    "typescript": "^5.3.3"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  }
+}

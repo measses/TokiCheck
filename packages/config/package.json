@@ -1,0 +1,14 @@
+{
+  "name": "@tokicheck/config",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Shared configuration files for TOKİCheck monorepo",
+  "main": "index.js",
+  "files": [
+    "tsconfig.json",
+    "eslint.config.js"
+  ],
+  "exports": {
+    "./tsconfig.json": "./tsconfig.json"
+  }
+}
