@@ -3,18 +3,13 @@ const nextConfig = {
   reactStrictMode: true,
   transpilePackages: ['@tokicheck/engine', '@tokicheck/types'],
 
-  // Internationalization
-  i18n: {
-    locales: ['tr', 'en'],
-    defaultLocale: 'tr',
-    localeDetection: true,
-  },
-
   // Performance optimizations
   swcMinify: true,
 
-  // Output configuration
-  output: 'standalone',
+  // Vercel deployment
+  experimental: {
+    outputFileTracingRoot: require('path').join(__dirname, '../../'),
+  },
 };
 
 module.exports = nextConfig;

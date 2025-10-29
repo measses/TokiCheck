@@ -28,7 +28,9 @@
   ],
   "scripts": {
     "dev": "npm run dev --workspace=apps/web",
-    "build": "npm run build --workspaces --if-present",
+    "build": "npm run build:packages && npm run build --workspace=apps/web",
+    "build:packages": "npm run build --workspace=packages/types && npm run build --workspace=packages/engine",
+    "vercel-build": "npm run build:packages && npm run build --workspace=apps/web",
     "test": "npm run test --workspaces --if-present",
     "lint": "npm run lint --workspaces --if-present",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
