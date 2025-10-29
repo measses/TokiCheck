@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "prebuild": "cd ../.. && npm run build:packages",
     "build": "next build",
-    "vercel-build": "cd ../.. && npm run build:packages && cd apps/web && npm run build",
     "start": "next start",
     "lint": "next lint",
     "type-check": "tsc --noEmit"
