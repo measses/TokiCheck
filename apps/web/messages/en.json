@@ -1,0 +1,126 @@
+{
+  "common": {
+    "appName": "TOKİCheck",
+    "tagline": "Rent → Installment decision support tool",
+    "calculate": "Calculate",
+    "reset": "Reset",
+    "share": "Share",
+    "export": "Export",
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "tryAgain": "Try Again"
+  },
+  "nav": {
+    "home": "Home",
+    "calculator": "Calculator",
+    "scenarios": "Scenarios",
+    "about": "About",
+    "language": "Language"
+  },
+  "home": {
+    "hero": {
+      "title": "Should I Apply for TOKİ Housing?",
+      "subtitle": "Visualize installment increases, income balance, and rent-installment overlap with transparent tables and charts",
+      "cta": "Calculate Now"
+    },
+    "features": {
+      "title": "What Can You Calculate?",
+      "installment": {
+        "title": "Installment Simulation",
+        "description": "240-month installment schedule with 6-month increases"
+      },
+      "income": {
+        "title": "Income Projection",
+        "description": "How your household income changes over time"
+      },
+      "sustainability": {
+        "title": "Sustainability",
+        "description": "Risk analysis based on payment-to-income ratio"
+      },
+      "overlap": {
+        "title": "Rent-Installment Overlap",
+        "description": "Additional cost during delivery delay period"
+      }
+    },
+    "personas": {
+      "title": "Who Is It For?",
+      "minWage": "Minimum Wage Earners",
+      "renting": "Current Renters",
+      "downPayment": "With Down Payment",
+      "comparing": "Comparing Options",
+      "advisor": "Advisors/Content Creators"
+    }
+  },
+  "calculator": {
+    "title": "Installment Calculator",
+    "presets": {
+      "title": "Quick Scenarios",
+      "optimistic": "Optimistic",
+      "moderate": "Moderate",
+      "pessimistic": "Pessimistic",
+      "custom": "Custom"
+    },
+    "installment": {
+      "title": "Installment Information",
+      "initialAmount": "Initial Installment (TRY)",
+      "totalMonths": "Total Months",
+      "downPayment": "Down Payment (TRY)",
+      "increaseMethod": "Increase Method",
+      "increaseRate": "Increase Rate (%)",
+      "increasePeriod": "Increase Period (Months)"
+    },
+    "income": {
+      "title": "Income Information",
+      "monthlyIncome": "Monthly Net Income (TRY)",
+      "annualIncrease": "Annual Increase (%)",
+      "members": "Household Members"
+    },
+    "rent": {
+      "title": "Rent Information",
+      "monthlyRent": "Monthly Rent (TRY)",
+      "annualIncrease": "Annual Increase (%)",
+      "deliveryDelay": "Estimated Delivery Delay (Months)"
+    }
+  },
+  "results": {
+    "title": "Calculation Results",
+    "summary": {
+      "title": "Summary",
+      "totalPayment": "Total Payment",
+      "totalRent": "Total Rent",
+      "overlapCost": "Overlap Cost",
+      "avgRatio": "Average Payment/Income Ratio",
+      "maxRatio": "Maximum Payment/Income Ratio",
+      "sustainabilityBreakdown": "Sustainability Breakdown"
+    },
+    "charts": {
+      "installmentVsIncome": "Installment vs Income",
+      "cumulative": "Cumulative Payment",
+      "sustainability": "Sustainability",
+      "overlapPeriod": "Overlap Period"
+    },
+    "table": {
+      "period": "Period",
+      "installment": "Installment",
+      "rent": "Rent",
+      "total": "Total",
+      "income": "Income",
+      "ratio": "Ratio",
+      "status": "Status"
+    },
+    "sustainability": {
+      "safe": "Safe",
+      "warning": "Warning",
+      "critical": "Critical"
+    }
+  },
+  "footer": {
+    "description": "Open-source decision support tool for TOKİ housing applicants",
+    "links": {
+      "github": "GitHub",
+      "docs": "Documentation",
+      "contribute": "Contribute"
+    },
+    "disclaimer": "This tool is for informational purposes. For official TOKİ data, visit toki.gov.tr"
+  }
+}

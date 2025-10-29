@@ -1,0 +1,126 @@
+{
+  "common": {
+    "appName": "TOKİCheck",
+    "tagline": "Kira → Taksit karar destek aracı",
+    "calculate": "Hesapla",
+    "reset": "Sıfırla",
+    "share": "Paylaş",
+    "export": "Dışa Aktar",
+    "loading": "Yükleniyor...",
+    "error": "Bir hata oluştu",
+    "tryAgain": "Tekrar Dene"
+  },
+  "nav": {
+    "home": "Ana Sayfa",
+    "calculator": "Hesaplama",
+    "scenarios": "Senaryolar",
+    "about": "Hakkında",
+    "language": "Dil"
+  },
+  "home": {
+    "hero": {
+      "title": "TOKİ Başvurusu Yapmalı mıyım?",
+      "subtitle": "Taksit artışları, gelir dengesi ve kira-taksit çakışmasını şeffaf tablolar ve grafiklerle görün",
+      "cta": "Hemen Hesapla"
+    },
+    "features": {
+      "title": "Neler Hesaplayabilirsiniz?",
+      "installment": {
+        "title": "Taksit Simülasyonu",
+        "description": "6 ayda bir artışlı, 240 aylık taksit takvimi"
+      },
+      "income": {
+        "title": "Gelir Projeksiyonu",
+        "description": "Hane gelirinizin zaman içindeki değişimi"
+      },
+      "sustainability": {
+        "title": "Sürdürülebilirlik",
+        "description": "Taksit/gelir oranına göre risk analizi"
+      },
+      "overlap": {
+        "title": "Kira-Taksit Çakışması",
+        "description": "Teslimat gecikmesi dönemindeki ek maliyet"
+      }
+    },
+    "personas": {
+      "title": "Kimler İçin?",
+      "minWage": "Asgari/2×Asgari Ücretli",
+      "renting": "Kira Ödeyen",
+      "downPayment": "Peşinatı Olan",
+      "comparing": "Karşılaştırmacı",
+      "advisor": "Danışman/İçerik Üreticisi"
+    }
+  },
+  "calculator": {
+    "title": "Taksit Hesaplayıcı",
+    "presets": {
+      "title": "Hızlı Senaryolar",
+      "optimistic": "İyimser",
+      "moderate": "Orta",
+      "pessimistic": "Kötümser",
+      "custom": "Özel"
+    },
+    "installment": {
+      "title": "Taksit Bilgileri",
+      "initialAmount": "İlk Taksit Tutarı (₺)",
+      "totalMonths": "Toplam Ay Sayısı",
+      "downPayment": "Peşinat (₺)",
+      "increaseMethod": "Artış Yöntemi",
+      "increaseRate": "Artış Oranı (%)",
+      "increasePeriod": "Artış Periyodu (Ay)"
+    },
+    "income": {
+      "title": "Gelir Bilgileri",
+      "monthlyIncome": "Aylık Net Gelir (₺)",
+      "annualIncrease": "Yıllık Artış (%)",
+      "members": "Hane Üyeleri"
+    },
+    "rent": {
+      "title": "Kira Bilgileri",
+      "monthlyRent": "Aylık Kira (₺)",
+      "annualIncrease": "Yıllık Artış (%)",
+      "deliveryDelay": "Tahmini Teslimat Gecikmesi (Ay)"
+    }
+  },
+  "results": {
+    "title": "Hesaplama Sonuçları",
+    "summary": {
+      "title": "Özet",
+      "totalPayment": "Toplam Ödeme",
+      "totalRent": "Toplam Kira",
+      "overlapCost": "Çakışma Maliyeti",
+      "avgRatio": "Ortalama Ödeme/Gelir Oranı",
+      "maxRatio": "Maksimum Ödeme/Gelir Oranı",
+      "sustainabilityBreakdown": "Sürdürülebilirlik Dağılımı"
+    },
+    "charts": {
+      "installmentVsIncome": "Taksit vs Gelir",
+      "cumulative": "Kümülatif Ödeme",
+      "sustainability": "Sürdürülebilirlik",
+      "overlapPeriod": "Çakışma Dönemi"
+    },
+    "table": {
+      "period": "Dönem",
+      "installment": "Taksit",
+      "rent": "Kira",
+      "total": "Toplam",
+      "income": "Gelir",
+      "ratio": "Oran",
+      "status": "Durum"
+    },
+    "sustainability": {
+      "safe": "Güvenli",
+      "warning": "Dikkat",
+      "critical": "Riskli"
+    }
+  },
+  "footer": {
+    "description": "TOKİ başvurusu düşünenler için açık kaynak karar destek aracı",
+    "links": {
+      "github": "GitHub",
+      "docs": "Dokümantasyon",
+      "contribute": "Katkıda Bulun"
+    },
+    "disclaimer": "Bu araç bilgilendirme amaçlıdır. Resmi TOKİ verileri için toki.gov.tr adresini ziyaret edin."
+  }
+}
