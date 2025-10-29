@@ -87,6 +87,20 @@ npm test
 npm run test:coverage
 ```
 
+### 🚀 Deployment
+
+TOKİCheck, Vercel'de tek tıkla deploy edilebilir:
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/measses/TokiCheck)
+
+**Manuel Deployment:**
+1. GitHub repo'yu Vercel'e import edin
+2. Framework preset: Next.js (otomatik algılanır)
+3. Build command: `npm run vercel-build`
+4. Deploy'a tıklayın
+
+Detaylı deployment talimatları için [DEPLOYMENT.md](DEPLOYMENT.md) dosyasına bakın.
+
 ### 🏗️ Teknoloji Stack'i
 
 #### Backend (Mevcut)
@@ -216,6 +230,20 @@ npm test
 # Test coverage
 npm run test:coverage
 ```
+
+### 🚀 Deployment
+
+Deploy TOKİCheck to Vercel with one click:
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/measses/TokiCheck)
+
+**Manual Deployment:**
+1. Import GitHub repo to Vercel
+2. Framework preset: Next.js (auto-detected)
+3. Build command: `npm run vercel-build`
+4. Click Deploy
+
+See [DEPLOYMENT.md](DEPLOYMENT.md) for detailed deployment instructions.
 
 ### 🤝 Contributing
 
