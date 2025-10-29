@@ -7,7 +7,6 @@ import {
   InstallmentConfig,
   InstallmentSchedule,
   CalculatedInstallment,
-  InstallmentIncreaseMethod,
 } from '@tokicheck/types';
 
 /**
