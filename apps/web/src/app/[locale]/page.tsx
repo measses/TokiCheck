@@ -1,6 +1,9 @@
 import Link from 'next/link';
+import { setRequestLocale } from 'next-intl/server';
 
-export default function HomePage() {
+export default function HomePage({ params: { locale } }: { params: { locale: string } }) {
+  // Enable static rendering
+  setRequestLocale(locale);
   return (
     <div className="container mx-auto px-4 py-16">
       {/* Hero Section */}
