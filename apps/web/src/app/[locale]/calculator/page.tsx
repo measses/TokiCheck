@@ -7,7 +7,10 @@ import { DEFAULT_PRESETS } from '@tokicheck/types';
 import { HousingSelector } from '@/components/calculator/HousingSelector';
 import { SummaryCards } from '@/components/calculator/SummaryCards';
 import { InstallmentTable } from '@/components/calculator/InstallmentTable';
+import { ChartSection } from '@/components/calculator/ChartSection';
 import { formatCurrency } from '@/lib/utils';
+import { exportToExcel } from '@/lib/exportToExcel';
+import { exportToPDF } from '@/lib/exportToPDF';
 
 type Step = 'housing' | 'details' | 'results';
 
@@ -325,27 +328,44 @@ export default function CalculatorPage() {
       {/* Step 3: Results */}
       {currentStep === 'results' && result && (
         <div className="space-y-8">
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <button onClick={() => setCurrentStep('details')} className="text-blue-600 hover:text-blue-800 flex items-center gap-2 font-medium">
               ← Ayarları Değiştir
             </button>
             <div className="flex gap-2">
-              <button className="px-4 py-2 border rounded-lg hover:bg-gray-50 transition-colors flex items-center gap-2">
+              <button
+                onClick={() => {
+                  const housingInfo = selectedHousing
+                    ? `${selectedHousing.housingType.replace('_', ' • ')} - ${selectedHousing.region === 'istanbul' ? 'İstanbul' : 'Anadolu'}`
+                    : undefined;
+                  exportToExcel(result, housingInfo);
+                }}
+                className="px-4 py-2 border rounded-lg hover:bg-green-50 hover:border-green-600 transition-colors flex items-center gap-2"
+              >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                 </svg>
                 Excel İndir
               </button>
-              <button className="px-4 py-2 border rounded-lg hover:bg-gray-50 transition-colors flex items-center gap-2">
+              <button
+                onClick={() => {
+                  const housingInfo = selectedHousing
+                    ? `${selectedHousing.housingType.replace('_', ' • ')} - ${selectedHousing.region === 'istanbul' ? 'İstanbul' : 'Anadolu'}`
+                    : undefined;
+                  exportToPDF(result, housingInfo);
+                }}
+                className="px-4 py-2 border rounded-lg hover:bg-red-50 hover:border-red-600 transition-colors flex items-center gap-2"
+              >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
                 </svg>
-                Paylaş
+                PDF İndir
               </button>
             </div>
           </div>
 
           <SummaryCards result={result} />
+          <ChartSection result={result} />
           <InstallmentTable result={result} isRenting={isRenting} />
         </div>
       )}
