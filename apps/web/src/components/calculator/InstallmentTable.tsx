@@ -1,11 +1,12 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useRef, useEffect } from 'react';
 import type { ScenarioResult } from '@tokicheck/types';
 import { formatCurrency, formatPercentage } from '@/lib/utils';
 
 interface InstallmentTableProps {
   result: ScenarioResult;
+  isRenting?: boolean;
 }
 
 type ViewMode = 'monthly' | 'yearly' | 'summary';
@@ -22,9 +23,17 @@ interface YearlyData {
   hasRent: boolean;
 }
 
-export function InstallmentTable({ result }: InstallmentTableProps) {
+export function InstallmentTable({ result, isRenting = true }: InstallmentTableProps) {
   const [viewMode, setViewMode] = useState<ViewMode>('yearly');
   const [showFullTable, setShowFullTable] = useState(false);
+  const tableRef = useRef<HTMLDivElement>(null);
+
+  // Scroll to table top when view mode changes
+  useEffect(() => {
+    if (tableRef.current) {
+      tableRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, [viewMode]);
 
   // Yearly aggregated data
   const yearlyData = useMemo(() => {
@@ -88,7 +97,7 @@ export function InstallmentTable({ result }: InstallmentTableProps) {
   };
 
   return (
-    <div className="space-y-4">
+    <div ref={tableRef} className="space-y-4">
       {/* View Mode Tabs */}
       <div className="flex gap-2 border-b">
         <button
@@ -131,7 +140,7 @@ export function InstallmentTable({ result }: InstallmentTableProps) {
               <tr>
                 <th className="px-4 py-3 text-left font-semibold">Dönem</th>
                 <th className="px-4 py-3 text-right font-semibold">Taksit</th>
-                <th className="px-4 py-3 text-right font-semibold">Kira</th>
+                {isRenting && <th className="px-4 py-3 text-right font-semibold">Kira</th>}
                 <th className="px-4 py-3 text-right font-semibold">Toplam</th>
                 <th className="px-4 py-3 text-right font-semibold">Gelir</th>
                 <th className="px-4 py-3 text-right font-semibold">Ödeme/Gelir</th>
@@ -155,20 +164,22 @@ export function InstallmentTable({ result }: InstallmentTableProps) {
                     } ${isIncreaseMonth ? 'bg-orange-50/30' : ''}`}
                   >
                     <td className="px-4 py-3">
-                      <div className="flex items-center gap-2">
-                        <span className={`${isYearStart ? 'font-bold text-blue-700' : 'font-medium'}`}>
-                          {yearNumber}. Yıl - {monthInYear}. Ay
+                      <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2">
+                        <span className={`whitespace-nowrap ${isYearStart ? 'font-bold text-blue-700' : 'font-medium'}`}>
+                          {yearNumber}.{monthInYear}
                         </span>
-                        {isIncreaseMonth && (
-                          <span className="text-xs bg-orange-200 text-orange-800 px-2 py-0.5 rounded-full font-medium">
-                            Taksit Artışı
-                          </span>
-                        )}
-                        {isIncomeIncreaseMonth && (
-                          <span className="text-xs bg-green-200 text-green-800 px-2 py-0.5 rounded-full font-medium">
-                            Gelir Artışı
-                          </span>
-                        )}
+                        <div className="flex flex-wrap gap-1">
+                          {isIncreaseMonth && (
+                            <span className="text-xs bg-orange-200 text-orange-800 px-2 py-0.5 rounded-full font-medium whitespace-nowrap">
+                              Taksit Artışı
+                            </span>
+                          )}
+                          {isIncomeIncreaseMonth && (
+                            <span className="text-xs bg-green-200 text-green-800 px-2 py-0.5 rounded-full font-medium whitespace-nowrap">
+                              Gelir Artışı
+                            </span>
+                          )}
+                        </div>
                       </div>
                     </td>
                     <td className="px-4 py-3 text-right">
@@ -176,15 +187,17 @@ export function InstallmentTable({ result }: InstallmentTableProps) {
                         {formatCurrency(period.installmentAmount)}
                       </span>
                     </td>
-                    <td className="px-4 py-3 text-right">
-                      {period.isRentingPeriod ? (
-                        <span className={`text-orange-600 ${isIncomeIncreaseMonth ? 'font-bold' : ''}`}>
-                          {formatCurrency(period.rentAmount)}
-                        </span>
-                      ) : (
-                        <span className="text-gray-400">-</span>
-                      )}
-                    </td>
+                    {isRenting && (
+                      <td className="px-4 py-3 text-right">
+                        {period.isRentingPeriod ? (
+                          <span className={`text-orange-600 ${isIncomeIncreaseMonth ? 'font-bold' : ''}`}>
+                            {formatCurrency(period.rentAmount)}
+                          </span>
+                        ) : (
+                          <span className="text-gray-400">-</span>
+                        )}
+                      </td>
+                    )}
                     <td className="px-4 py-3 text-right font-semibold">
                       {formatCurrency(period.totalMonthlyPayment)}
                     </td>
@@ -239,7 +252,7 @@ export function InstallmentTable({ result }: InstallmentTableProps) {
               <tr>
                 <th className="px-4 py-3 text-left font-semibold">Ay</th>
                 <th className="px-4 py-3 text-right font-semibold">Taksit</th>
-                <th className="px-4 py-3 text-right font-semibold">Kira</th>
+                {isRenting && <th className="px-4 py-3 text-right font-semibold">Kira</th>}
                 <th className="px-4 py-3 text-right font-semibold">Toplam</th>
                 <th className="px-4 py-3 text-right font-semibold">Gelir</th>
                 <th className="px-4 py-3 text-right font-semibold">Oran</th>
@@ -268,13 +281,15 @@ export function InstallmentTable({ result }: InstallmentTableProps) {
                       </div>
                     </td>
                     <td className="px-4 py-3 text-right">{formatCurrency(period.installmentAmount)}</td>
-                    <td className="px-4 py-3 text-right">
-                      {period.isRentingPeriod ? (
-                        <span className="text-orange-600">{formatCurrency(period.rentAmount)}</span>
-                      ) : (
-                        <span className="text-gray-400">-</span>
-                      )}
-                    </td>
+                    {isRenting && (
+                      <td className="px-4 py-3 text-right">
+                        {period.isRentingPeriod ? (
+                          <span className="text-orange-600">{formatCurrency(period.rentAmount)}</span>
+                        ) : (
+                          <span className="text-gray-400">-</span>
+                        )}
+                      </td>
+                    )}
                     <td className="px-4 py-3 text-right font-semibold">{formatCurrency(period.totalMonthlyPayment)}</td>
                     <td className="px-4 py-3 text-right text-gray-600">{formatCurrency(period.householdIncome)}</td>
                     <td className={`px-4 py-3 text-right font-medium ${getSustainabilityColor(period.paymentToIncomeRatio)}`}>

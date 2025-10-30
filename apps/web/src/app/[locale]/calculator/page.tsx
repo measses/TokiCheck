@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { calculateScenario } from '@tokicheck/engine';
 import type { ScenarioConfig, HousingPrice } from '@tokicheck/types';
 import { DEFAULT_PRESETS } from '@tokicheck/types';
@@ -26,6 +26,11 @@ export default function CalculatorPage() {
   const [deliveryDelay, setDeliveryDelay] = useState(24);
   const [installmentIncrease, setInstallmentIncrease] = useState(7.5);
   const [selectedPreset, setSelectedPreset] = useState<'optimistic' | 'moderate' | 'pessimistic'>('moderate');
+
+  // Scroll to top when step changes
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [currentStep]);
 
   const handleHousingSelect = (housing: HousingPrice) => {
     setSelectedHousing(housing);
@@ -93,9 +98,27 @@ export default function CalculatorPage() {
   };
 
   const presetOptions = [
-    { value: 'optimistic', label: 'İyimser', description: 'Düşük artış oranları', emoji: '😊' },
-    { value: 'moderate', label: 'Gerçekçi', description: 'Orta seviye artışlar', emoji: '😐' },
-    { value: 'pessimistic', label: 'Kötümser', description: 'Yüksek artış oranları', emoji: '😟' },
+    {
+      value: 'optimistic',
+      label: 'İyimser',
+      description: 'Düşük artış oranları',
+      emoji: '😊',
+      details: DEFAULT_PRESETS.optimistic
+    },
+    {
+      value: 'moderate',
+      label: 'Gerçekçi',
+      description: 'Orta seviye artışlar',
+      emoji: '😐',
+      details: DEFAULT_PRESETS.moderate
+    },
+    {
+      value: 'pessimistic',
+      label: 'Kötümser',
+      description: 'Yüksek artış oranları',
+      emoji: '😟',
+      details: DEFAULT_PRESETS.pessimistic
+    },
   ];
 
   return (
@@ -134,15 +157,44 @@ export default function CalculatorPage() {
                 <button
                   key={preset.value}
                   onClick={() => handlePresetSelect(preset.value as any)}
-                  className={`p-4 border-2 rounded-lg transition-all ${
+                  className={`p-4 border-2 rounded-lg transition-all text-left ${
                     selectedPreset === preset.value ? 'border-blue-600 bg-blue-50' : 'border-gray-200 hover:border-gray-300'
                   }`}
                 >
                   <div className="text-3xl mb-2">{preset.emoji}</div>
                   <div className="font-semibold">{preset.label}</div>
-                  <div className="text-sm text-gray-500 mt-1">{preset.description}</div>
+                  <div className="text-sm text-gray-500 mt-1 mb-3">{preset.description}</div>
+                  <div className="space-y-1 text-xs">
+                    <div className="flex justify-between border-t pt-2">
+                      <span className="text-gray-600">Taksit Artışı:</span>
+                      <span className="font-semibold text-blue-600">%{preset.details.installmentIncreasePercentage}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">Gelir Artışı:</span>
+                      <span className="font-semibold text-green-600">%{preset.details.incomeIncreasePercentage}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">Kira Artışı:</span>
+                      <span className="font-semibold text-orange-600">%{preset.details.rentIncreasePercentage}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">Teslimat:</span>
+                      <span className="font-semibold text-purple-600">{preset.details.deliveryDelayMonths} ay</span>
+                    </div>
+                  </div>
                 </button>
               ))}
+            </div>
+            <div className="mt-4 p-3 bg-gray-50 rounded-lg border text-sm text-gray-700">
+              <div className="flex items-start gap-2">
+                <svg className="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <div>
+                  <strong>Senaryo seçimi</strong> taksit artışı, gelir artışı, kira artışı ve teslimat süresini otomatik ayarlar.
+                  Daha sonra bu değerleri özelleştirebilirsiniz.
+                </div>
+              </div>
             </div>
           </div>
 
@@ -294,7 +346,7 @@ export default function CalculatorPage() {
           </div>
 
           <SummaryCards result={result} />
-          <InstallmentTable result={result} />
+          <InstallmentTable result={result} isRenting={isRenting} />
         </div>
       )}
     </div>
