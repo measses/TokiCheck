@@ -37,11 +37,11 @@ export default async function LocaleLayout({
           <header className="border-b">
             <div className="container mx-auto px-4 py-4">
               <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-2">
+                <Link href={`/${locale}`} className="flex items-center space-x-2 hover:opacity-80 transition-opacity">
                   <h1 className="text-2xl font-bold text-primary">
                     TOKİCheck
                   </h1>
-                </div>
+                </Link>
                 <nav className="hidden md:flex items-center space-x-6">
                   <Link href={`/${locale}`} className="hover:text-primary transition-colors">
                     Ana Sayfa
@@ -80,8 +80,17 @@ export default async function LocaleLayout({
                     className="underline hover:text-primary"
                   >
                     toki.gov.tr
-                  </a>{' '}
-                  adresini ziyaret edin.
+                  </a>
+                  {' '}ve{' '}
+                  <a
+                    href="https://evsahibiturkiye.gov.tr/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline hover:text-primary"
+                  >
+                    evsahibiturkiye.gov.tr
+                  </a>
+                  {' '}adreslerini ziyaret edin.
                 </p>
               </div>
             </div>

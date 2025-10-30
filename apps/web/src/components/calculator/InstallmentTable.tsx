@@ -165,18 +165,18 @@ export function InstallmentTable({ result, isRenting = true }: InstallmentTableP
                   >
                     <td className="px-4 py-3">
                       <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2">
-                        <span className={`whitespace-nowrap ${isYearStart ? 'font-bold text-blue-700' : 'font-medium'}`}>
-                          {yearNumber}.{monthInYear}
+                        <span className={`whitespace-nowrap text-sm sm:text-base ${isYearStart ? 'font-bold text-blue-700' : 'font-medium'}`}>
+                          {yearNumber}. Yıl {monthInYear}. Ay
                         </span>
                         <div className="flex flex-wrap gap-1">
                           {isIncreaseMonth && (
                             <span className="text-xs bg-orange-200 text-orange-800 px-2 py-0.5 rounded-full font-medium whitespace-nowrap">
-                              Taksit Artışı
+                              Taksit ↑
                             </span>
                           )}
                           {isIncomeIncreaseMonth && (
                             <span className="text-xs bg-green-200 text-green-800 px-2 py-0.5 rounded-full font-medium whitespace-nowrap">
-                              Gelir Artışı
+                              Gelir ↑
                             </span>
                           )}
                         </div>
