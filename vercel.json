@@ -2,5 +2,5 @@
   "framework": "nextjs",
   "installCommand": "npm install",
   "buildCommand": "npm run build",
-  "outputDirectory": "apps/web/.next"
+  "outputDirectory": ".next"
 }
