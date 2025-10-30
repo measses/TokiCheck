@@ -300,7 +300,19 @@ function FormSection({ title, children }: { title: string; children: React.React
   );
 }
 
-function FormInput({ label, value, onChange, type = 'text', step }: { label: string; value: any; onChange: any; type?: string; step?: string }) {
+function FormInput({
+  label,
+  value,
+  onChange,
+  type = 'text',
+  step
+}: {
+  label: string;
+  value: number | string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  type?: string;
+  step?: string;
+}) {
   return (
     <div>
       <label className="block text-sm font-medium text-gray-700 mb-2">{label}</label>
