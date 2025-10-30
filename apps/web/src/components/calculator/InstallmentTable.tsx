@@ -209,7 +209,8 @@ export function InstallmentTable({ result }: InstallmentTableProps) {
             <tbody className="divide-y">
               {(displayData as typeof result.periodData).map((period) => {
                 const badge = getSustainabilityBadge(period.paymentToIncomeRatio);
-                const isIncreaseMonth = period.increasePercentage !== undefined;
+                // Artış ayları: 7, 13, 19, 25, ... (her 6 ayda bir, 1. hariç)
+                const isIncreaseMonth = period.period > 1 && (period.period - 1) % 6 === 0;
 
                 return (
                   <tr
