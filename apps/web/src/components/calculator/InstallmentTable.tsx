@@ -10,13 +10,25 @@ interface InstallmentTableProps {
 
 type ViewMode = 'monthly' | 'yearly' | 'summary';
 
+interface YearlyData {
+  year: number;
+  totalInstallment: number;
+  totalRent: number;
+  totalPayment: number;
+  avgIncome: number;
+  avgRatio: number;
+  maxRatio: number;
+  sustainabilityBreakdown: { safe: number; warning: number; critical: number };
+  hasRent: boolean;
+}
+
 export function InstallmentTable({ result }: InstallmentTableProps) {
   const [viewMode, setViewMode] = useState<ViewMode>('yearly');
   const [showFullTable, setShowFullTable] = useState(false);
 
   // Yearly aggregated data
   const yearlyData = useMemo(() => {
-    const years: any[] = [];
+    const years: YearlyData[] = [];
     for (let year = 1; year <= 20; year++) {
       const startPeriod = (year - 1) * 12;
       const endPeriod = year * 12;
@@ -52,7 +64,7 @@ export function InstallmentTable({ result }: InstallmentTableProps) {
   }, [result]);
 
   // Limit display for initial view
-  const displayData = useMemo(() => {
+  const displayData: (YearlyData | typeof result.periodData[0])[] = useMemo(() => {
     if (viewMode === 'yearly') {
       return showFullTable ? yearlyData : yearlyData.slice(0, 10);
     }
@@ -126,7 +138,7 @@ export function InstallmentTable({ result }: InstallmentTableProps) {
               </tr>
             </thead>
             <tbody className="divide-y">
-              {displayData.map((row: any, index) => {
+              {(displayData as YearlyData[]).map((row) => {
                 const badge = getSustainabilityBadge(row.maxRatio);
                 return (
                   <tr key={row.year} className="hover:bg-gray-50 transition-colors">
@@ -195,7 +207,7 @@ export function InstallmentTable({ result }: InstallmentTableProps) {
               </tr>
             </thead>
             <tbody className="divide-y">
-              {displayData.map((period: any) => {
+              {(displayData as typeof result.periodData).map((period) => {
                 const badge = getSustainabilityBadge(period.paymentToIncomeRatio);
                 const isIncreaseMonth = period.increasePercentage !== undefined;
 
