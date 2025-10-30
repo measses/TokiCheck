@@ -15,7 +15,7 @@ export default function HomePage({ params: { locale } }: { params: { locale: str
           Taksit artışları, gelir dengesi ve kira-taksit çakışmasını şeffaf tablolar ve grafiklerle görün
         </p>
         <Link
-          href="/tr/calculator"
+          href={`/${locale}/calculator`}
           className="inline-block bg-primary text-primary-foreground px-8 py-3 rounded-lg text-lg font-semibold hover:bg-primary/90 transition-colors"
         >
           Hemen Hesapla
@@ -109,7 +109,7 @@ export default function HomePage({ params: { locale } }: { params: { locale: str
         </p>
         <div className="flex justify-center gap-4">
           <Link
-            href="/tr/calculator"
+            href={`/${locale}/calculator`}
             className="inline-block bg-primary text-primary-foreground px-6 py-2 rounded-lg font-semibold hover:bg-primary/90 transition-colors"
           >
             Hesaplamaya Başla
