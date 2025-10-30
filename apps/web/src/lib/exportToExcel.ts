@@ -7,45 +7,35 @@ export function exportToExcel(result: ScenarioResult, housingInfo?: string) {
   const wb = XLSX.utils.book_new();
 
   // Sheet 1: Özet (Summary)
-  const summaryData = [
+  const ws1 = XLSX.utils.aoa_to_sheet([
     ['TOKİ Hesaplama Raporu'],
     [''],
-    ['Tarih:', new Date().toLocaleDateString('tr-TR')],
-    housingInfo ? ['Konut:', housingInfo] : [],
+    ['Tarih', new Date().toLocaleDateString('tr-TR')],
+    ['Konut', housingInfo || '-'],
     [''],
-    ['ÖZET BİLGİLER'],
-    [''],
+    ['ÖZET BİLGİLER', ''],
     ['Peşinat', formatCurrency(result.summary.downPayment)],
     ['Toplam Taksit Ödemesi (20 yıl)', formatCurrency(result.summary.totalInstallmentPayment)],
     ['Toplam Kira Ödemesi', formatCurrency(result.summary.totalRentPayment)],
     ['Genel Toplam Maliyet', formatCurrency(result.summary.totalOutOfPocket)],
     [''],
-    ['ÖDEME/GELİR ORANLARI'],
-    [''],
+    ['ÖDEME/GELİR ORANLARI', ''],
     ['Başlangıç Oranı', formatPercentage(result.periodData[0]?.paymentToIncomeRatio || 0)],
     ['Ortalama Oran', formatPercentage(result.summary.averagePaymentToIncomeRatio)],
     ['Maksimum Oran', formatPercentage(result.summary.maxPaymentToIncomeRatio)],
     ['Maksimum Oran Ayı', `${result.summary.maxRatioPeriod}. Ay`],
     [''],
-    ['SÜRDÜRÜLEBİLİRLİK ANALİZİ'],
-    [''],
+    ['SÜRDÜRÜLEBİLİRLİK ANALİZİ', ''],
     ['Güvenli Aylar (≤30%)', `${result.summary.sustainabilityBreakdown.safe} ay`],
     ['Dikkat Ayları (30-35%)', `${result.summary.sustainabilityBreakdown.warning} ay`],
     ['Riskli Aylar (>35%)', `${result.summary.sustainabilityBreakdown.critical} ay`],
-  ];
-
-  const ws1 = XLSX.utils.aoa_to_sheet(summaryData);
+  ]);
 
   // Set column widths
-  ws1['!cols'] = [{ wch: 30 }, { wch: 20 }];
+  ws1['!cols'] = [{ wch: 35 }, { wch: 25 }];
 
-  // Style header
-  if (ws1['A1']) {
-    ws1['A1'].s = {
-      font: { bold: true, sz: 16 },
-      alignment: { horizontal: 'center' },
-    };
-  }
+  // Merge title cell
+  ws1['!merges'] = [{ s: { r: 0, c: 0 }, e: { r: 0, c: 1 } }];
 
   XLSX.utils.book_append_sheet(wb, ws1, 'Özet');
 

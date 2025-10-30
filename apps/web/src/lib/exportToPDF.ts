@@ -6,20 +6,33 @@ import { formatCurrency, formatPercentage } from './utils';
 export function exportToPDF(result: ScenarioResult, housingInfo?: string) {
   const doc = new jsPDF();
 
-  // Add Turkish font support (using default fonts for now)
+  // Helper function to convert Turkish characters
+  const turkishToLatin = (text: string): string => {
+    const map: { [key: string]: string } = {
+      'ç': 'c', 'Ç': 'C',
+      'ğ': 'g', 'Ğ': 'G',
+      'ı': 'i', 'İ': 'I',
+      'ö': 'o', 'Ö': 'O',
+      'ş': 's', 'Ş': 'S',
+      'ü': 'u', 'Ü': 'U',
+      '₺': 'TL'
+    };
+    return text.replace(/[çÇğĞıİöÖşŞüÜ₺]/g, char => map[char] || char);
+  };
+
   doc.setFont('helvetica');
 
   // Title
   doc.setFontSize(20);
   doc.setTextColor(37, 99, 235); // blue-600
-  doc.text('TOKI Hesaplama Raporu', 105, 20, { align: 'center' });
+  doc.text(turkishToLatin('TOKI Hesaplama Raporu'), 105, 20, { align: 'center' });
 
   // Date and Housing Info
   doc.setFontSize(10);
   doc.setTextColor(100, 100, 100);
-  doc.text(`Tarih: ${new Date().toLocaleDateString('tr-TR')}`, 14, 35);
+  doc.text(turkishToLatin(`Tarih: ${new Date().toLocaleDateString('tr-TR')}`), 14, 35);
   if (housingInfo) {
-    doc.text(`Konut: ${housingInfo}`, 14, 42);
+    doc.text(turkishToLatin(`Konut: ${housingInfo}`), 14, 42);
   }
 
   // Summary Section
@@ -27,17 +40,17 @@ export function exportToPDF(result: ScenarioResult, housingInfo?: string) {
 
   doc.setFontSize(14);
   doc.setTextColor(0, 0, 0);
-  doc.text('Ozet Bilgiler', 14, yPosition);
+  doc.text(turkishToLatin('Ozet Bilgiler'), 14, yPosition);
 
   yPosition += 8;
   doc.setFontSize(10);
 
   const summaryData = [
-    ['Peşinat', formatCurrency(result.summary.downPayment)],
-    ['Toplam Taksit Ödemesi (20 yıl)', formatCurrency(result.summary.totalInstallmentPayment)],
-    ['Toplam Kira Ödemesi', formatCurrency(result.summary.totalRentPayment)],
-    ['Genel Toplam Maliyet', formatCurrency(result.summary.totalOutOfPocket)],
-  ];
+    [turkishToLatin('Pesinat'), turkishToLatin(formatCurrency(result.summary.downPayment))],
+    [turkishToLatin('Toplam Taksit Odemesi (20 yil)'), turkishToLatin(formatCurrency(result.summary.totalInstallmentPayment))],
+    [turkishToLatin('Toplam Kira Odemesi'), turkishToLatin(formatCurrency(result.summary.totalRentPayment))],
+    [turkishToLatin('Genel Toplam Maliyet'), turkishToLatin(formatCurrency(result.summary.totalOutOfPocket))],
+  ].map(row => row.map(cell => turkishToLatin(cell)));
 
   autoTable(doc, {
     startY: yPosition,
@@ -58,15 +71,15 @@ export function exportToPDF(result: ScenarioResult, housingInfo?: string) {
   yPosition = (doc as any).lastAutoTable.finalY + 12;
 
   doc.setFontSize(14);
-  doc.text('Odeme/Gelir Oranlari', 14, yPosition);
+  doc.text(turkishToLatin('Odeme/Gelir Oranlari'), 14, yPosition);
 
   yPosition += 8;
 
   const ratioData = [
-    ['Baslangic Orani', formatPercentage(result.periodData[0]?.paymentToIncomeRatio || 0)],
-    ['Ortalama Oran', formatPercentage(result.summary.averagePaymentToIncomeRatio)],
-    ['Maksimum Oran', formatPercentage(result.summary.maxPaymentToIncomeRatio)],
-    ['Maksimum Oran Ayi', `${result.summary.maxRatioPeriod}. Ay`],
+    [turkishToLatin('Baslangic Orani'), turkishToLatin(formatPercentage(result.periodData[0]?.paymentToIncomeRatio || 0))],
+    [turkishToLatin('Ortalama Oran'), turkishToLatin(formatPercentage(result.summary.averagePaymentToIncomeRatio))],
+    [turkishToLatin('Maksimum Oran'), turkishToLatin(formatPercentage(result.summary.maxPaymentToIncomeRatio))],
+    [turkishToLatin('Maksimum Oran Ayi'), turkishToLatin(`${result.summary.maxRatioPeriod}. Ay`)],
   ];
 
   autoTable(doc, {
@@ -88,14 +101,14 @@ export function exportToPDF(result: ScenarioResult, housingInfo?: string) {
   yPosition = (doc as any).lastAutoTable.finalY + 12;
 
   doc.setFontSize(14);
-  doc.text('Surdurulebilirlik Analizi', 14, yPosition);
+  doc.text(turkishToLatin('Surdurulebilirlik Analizi'), 14, yPosition);
 
   yPosition += 8;
 
   const sustainabilityData = [
-    ['Guvenli Aylar (≤30%)', `${result.summary.sustainabilityBreakdown.safe} ay`],
-    ['Dikkat Aylari (30-35%)', `${result.summary.sustainabilityBreakdown.warning} ay`],
-    ['Riskli Aylar (>35%)', `${result.summary.sustainabilityBreakdown.critical} ay`],
+    [turkishToLatin('Guvenli Aylar (<=30%)'), turkishToLatin(`${result.summary.sustainabilityBreakdown.safe} ay`)],
+    [turkishToLatin('Dikkat Aylari (30-35%)'), turkishToLatin(`${result.summary.sustainabilityBreakdown.warning} ay`)],
+    [turkishToLatin('Riskli Aylar (>35%)'), turkishToLatin(`${result.summary.sustainabilityBreakdown.critical} ay`)],
   ];
 
   autoTable(doc, {
@@ -117,19 +130,19 @@ export function exportToPDF(result: ScenarioResult, housingInfo?: string) {
   doc.addPage();
 
   doc.setFontSize(14);
-  doc.text('Aylik Detay (Ilk 60 Ay)', 14, 20);
+  doc.text(turkishToLatin('Aylik Detay (Ilk 60 Ay)'), 14, 20);
 
   // Monthly Detail Table (first 60 months for space)
-  const monthlyHeaders = [['Ay', 'Taksit', 'Kira', 'Toplam', 'Gelir', 'Oran', 'Durum']];
+  const monthlyHeaders = [[turkishToLatin('Ay'), turkishToLatin('Taksit'), turkishToLatin('Kira'), turkishToLatin('Toplam'), turkishToLatin('Gelir'), turkishToLatin('Oran'), turkishToLatin('Durum')]];
 
   const monthlyData = result.periodData.slice(0, 60).map((period) => [
     period.period.toString(),
-    formatCurrency(period.installmentAmount).replace(/\s/g, ''),
-    period.isRentingPeriod ? formatCurrency(period.rentAmount).replace(/\s/g, '') : '-',
-    formatCurrency(period.totalMonthlyPayment).replace(/\s/g, ''),
-    formatCurrency(period.householdIncome).replace(/\s/g, ''),
-    formatPercentage(period.paymentToIncomeRatio),
-    period.sustainabilityStatus === 'safe' ? 'Guvenli' : period.sustainabilityStatus === 'warning' ? 'Dikkat' : 'Riskli',
+    turkishToLatin(formatCurrency(period.installmentAmount).replace(/\s/g, '')),
+    period.isRentingPeriod ? turkishToLatin(formatCurrency(period.rentAmount).replace(/\s/g, '')) : '-',
+    turkishToLatin(formatCurrency(period.totalMonthlyPayment).replace(/\s/g, '')),
+    turkishToLatin(formatCurrency(period.householdIncome).replace(/\s/g, '')),
+    turkishToLatin(formatPercentage(period.paymentToIncomeRatio)),
+    turkishToLatin(period.sustainabilityStatus === 'safe' ? 'Guvenli' : period.sustainabilityStatus === 'warning' ? 'Dikkat' : 'Riskli'),
   ]);
 
   autoTable(doc, {
@@ -177,7 +190,7 @@ export function exportToPDF(result: ScenarioResult, housingInfo?: string) {
     doc.setFontSize(8);
     doc.setTextColor(150, 150, 150);
     doc.text(
-      `Sayfa ${i} / ${pageCount} - TOKİCheck tarafindan olusturuldu`,
+      turkishToLatin(`Sayfa ${i} / ${pageCount} - TOKICheck tarafindan olusturuldu`),
       105,
       290,
       { align: 'center' }
