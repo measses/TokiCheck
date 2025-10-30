@@ -9,7 +9,7 @@ import {
   getInstallmentForPeriod,
   calculateAverageMonthlyPayment,
 } from '../src/calculators/installment-calculator';
-import { InstallmentConfig } from '@tokicheck/types';
+import { InstallmentConfig, TOKI_HOUSING_PRICES } from '@tokicheck/types';
 
 describe('Installment Calculator', () => {
   const baseConfig: InstallmentConfig = {
@@ -139,6 +139,95 @@ describe('Installment Calculator', () => {
 
       expect(schedule.installments).toHaveLength(1);
       expect(schedule.totalAmount).toBe(5000_00);
+    });
+  });
+
+  describe('TOKİ Official Data', () => {
+    it('should calculate correctly with Anadolu 1+1 55m² official prices', () => {
+      const housing = TOKI_HOUSING_PRICES['anadolu_1+1_55'];
+
+      const config: InstallmentConfig = {
+        initialAmount: housing.monthlyInstallment,
+        totalInstallments: 240,
+        downPayment: housing.downPayment,
+        increaseConfig: {
+          method: 'fixed-percentage',
+          percentagePerPeriod: 7.5, // %7.5 per 6 months
+          increasePeriod: 6,
+          increasePeriodUnit: 'month',
+        },
+      };
+
+      const schedule = calculateInstallmentSchedule(config);
+
+      // First installment should be official price
+      expect(schedule.installments[0].amount).toBe(6_750_00);
+
+      // 7th installment should have 7.5% increase
+      expect(schedule.installments[6].amount).toBe(7_256_25);
+
+      // 13th installment should have second increase
+      expect(schedule.installments[12].amount).toBe(7_800_47);
+    });
+
+    it('should calculate correctly with Istanbul 2+1 65m² official prices', () => {
+      const housing = TOKI_HOUSING_PRICES['istanbul_2+1_65'];
+
+      const config: InstallmentConfig = {
+        initialAmount: housing.monthlyInstallment,
+        totalInstallments: 240,
+        downPayment: housing.downPayment,
+        increaseConfig: {
+          method: 'fixed-percentage',
+          percentagePerPeriod: 7.5,
+          increasePeriod: 6,
+          increasePeriodUnit: 'month',
+        },
+      };
+
+      const schedule = calculateInstallmentSchedule(config);
+
+      // First installment should be official price
+      expect(schedule.installments[0].amount).toBe(9_188_00);
+
+      // Total should include down payment
+      const totalOutOfPocket = calculateTotalOutOfPocket(schedule);
+      expect(totalOutOfPocket).toBeGreaterThan(housing.downPayment);
+    });
+
+    it('should verify increase timing is correct', () => {
+      const config: InstallmentConfig = {
+        initialAmount: 1000_00,
+        totalInstallments: 20,
+        downPayment: 10000_00,
+        increaseConfig: {
+          method: 'fixed-percentage',
+          percentagePerPeriod: 10,
+          increasePeriod: 6,
+          increasePeriodUnit: 'month',
+        },
+      };
+
+      const schedule = calculateInstallmentSchedule(config);
+
+      // Periods 1-6: 1000 (no increase)
+      for (let i = 0; i < 6; i++) {
+        expect(schedule.installments[i].amount).toBe(1000_00);
+      }
+
+      // Period 7: First increase (1000 * 1.10 = 1100)
+      expect(schedule.installments[6].amount).toBe(1100_00);
+
+      // Periods 8-12: 1100 (no new increase)
+      for (let i = 7; i < 12; i++) {
+        expect(schedule.installments[i].amount).toBe(1100_00);
+      }
+
+      // Period 13: Second increase (1100 * 1.10 = 1210)
+      expect(schedule.installments[12].amount).toBe(1210_00);
+
+      // Period 19: Third increase (1210 * 1.10 = 1331)
+      expect(schedule.installments[18].amount).toBe(1331_00);
     });
   });
 });

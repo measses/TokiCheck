@@ -73,6 +73,16 @@ export function calculateInstallmentSchedule(config: InstallmentConfig): Install
  * @param period - Current period number (1-based)
  * @param config - Installment configuration
  * @returns Percentage increase for this period (0 if no increase)
+ *
+ * @remarks
+ * TOKİ artış mantığı:
+ * - 1-6. aylar: İlk taksit tutarı (artış yok)
+ * - 7. ay: İlk artış uygulanır
+ * - 13. ay: İkinci artış uygulanır
+ * - 19. ay: Üçüncü artış uygulanır
+ * - vb...
+ *
+ * Genel formül: period > 1 && (period - 1) % increasePeriod === 0
  */
 function getIncreasePercentageForPeriod(
   period: number,
@@ -80,9 +90,17 @@ function getIncreasePercentageForPeriod(
 ): number {
   const { increaseConfig } = config;
 
-  // Check if this is an increase period
-  if (period === 1 || period % increaseConfig.increasePeriod !== 1) {
-    return 0; // No increase for this period
+  // İlk periyotta artış yok
+  if (period === 1) {
+    return 0;
+  }
+
+  // Her increasePeriod ayda bir artış uygulanır
+  // Örnek: increasePeriod=6 ise, 7, 13, 19, 25... aylarında artış olur
+  // (7-1) % 6 = 6 % 6 = 0 ✓
+  // (13-1) % 6 = 12 % 6 = 0 ✓
+  if ((period - 1) % increaseConfig.increasePeriod !== 0) {
+    return 0; // Bu periyotta artış yok
   }
 
   switch (increaseConfig.method) {
