@@ -20,6 +20,7 @@ export default function CalculatorPage() {
   // Form states
   const [monthlyIncome, setMonthlyIncome] = useState(100_000); // 100,000 TL (as TL, not kuruş)
   const [incomeIncrease, setIncomeIncrease] = useState(15);
+  const [isRenting, setIsRenting] = useState(true); // Yeni: Kiracı mı?
   const [monthlyRent, setMonthlyRent] = useState(15_000);
   const [rentIncrease, setRentIncrease] = useState(25);
   const [deliveryDelay, setDeliveryDelay] = useState(24);
@@ -75,9 +76,9 @@ export default function CalculatorPage() {
           projectionPeriodUnit: 'month',
         },
         rentConfig: {
-          monthlyRent: monthlyRent * 100,
-          annualIncreasePercentage: rentIncrease,
-          deliveryDelayMonths: deliveryDelay,
+          monthlyRent: isRenting ? monthlyRent * 100 : 0,
+          annualIncreasePercentage: isRenting ? rentIncrease : 0,
+          deliveryDelayMonths: isRenting ? deliveryDelay : 0,
         },
       };
 
@@ -166,27 +167,56 @@ export default function CalculatorPage() {
               </FormSection>
 
               <FormSection title="Kira Bilgileri">
-                <FormInput
-                  label="Aylık Kira (₺)"
-                  value={monthlyRent}
-                  onChange={(e) => setMonthlyRent(Number(e.target.value))}
-                  type="number"
-                  step="1000"
-                />
-                <FormInput
-                  label="Yıllık Kira Artışı (%)"
-                  value={rentIncrease}
-                  onChange={(e) => setRentIncrease(Number(e.target.value))}
-                  type="number"
-                  step="1"
-                />
-                <FormInput
-                  label="Teslimat Gecikmesi (Ay)"
-                  value={deliveryDelay}
-                  onChange={(e) => setDeliveryDelay(Number(e.target.value))}
-                  type="number"
-                  step="6"
-                />
+                {/* Kiracı mı? Checkbox */}
+                <div className="flex items-start gap-3 p-4 bg-blue-50 rounded-lg border border-blue-200">
+                  <input
+                    type="checkbox"
+                    id="isRenting"
+                    checked={isRenting}
+                    onChange={(e) => setIsRenting(e.target.checked)}
+                    className="mt-1 w-4 h-4 text-blue-600 rounded focus:ring-2 focus:ring-blue-600"
+                  />
+                  <div className="flex-1">
+                    <label htmlFor="isRenting" className="font-medium text-gray-900 cursor-pointer flex items-center gap-2">
+                      Şu an kiracıyım
+                      <InfoTooltip />
+                    </label>
+                    <p className="text-sm text-gray-600 mt-1">
+                      TOKİ konutu teslim edilene kadar kira ödemesi yapıyorum
+                    </p>
+                  </div>
+                </div>
+
+                {/* Kira detayları - Sadece kiracı ise göster */}
+                {isRenting && (
+                  <div className="space-y-4 pt-2">
+                    <FormInput
+                      label="Aylık Kira (₺)"
+                      value={monthlyRent}
+                      onChange={(e) => setMonthlyRent(Number(e.target.value))}
+                      type="number"
+                      step="1000"
+                    />
+                    <FormInput
+                      label="Yıllık Kira Artışı (%)"
+                      value={rentIncrease}
+                      onChange={(e) => setRentIncrease(Number(e.target.value))}
+                      type="number"
+                      step="1"
+                    />
+                    <FormInput
+                      label="Tahmini Teslimat Gecikmesi (Ay)"
+                      value={deliveryDelay}
+                      onChange={(e) => setDeliveryDelay(Number(e.target.value))}
+                      type="number"
+                      step="6"
+                    />
+                    <div className="text-xs text-gray-500 bg-gray-50 p-3 rounded border">
+                      <strong>💡 Not:</strong> TOKİ projelerinde teslimat gecikmesi yaşanabilir.
+                      Bu sürede hem kira hem taksit ödemesi yaparsınız.
+                    </div>
+                  </div>
+                )}
               </FormSection>
 
               <FormSection title="Taksit Artış Oranı">
@@ -272,6 +302,46 @@ export default function CalculatorPage() {
 }
 
 // Helper Components
+function InfoTooltip() {
+  const [showTooltip, setShowTooltip] = useState(false);
+
+  return (
+    <div className="relative inline-block">
+      <button
+        type="button"
+        onMouseEnter={() => setShowTooltip(true)}
+        onMouseLeave={() => setShowTooltip(false)}
+        onClick={() => setShowTooltip(!showTooltip)}
+        className="w-5 h-5 rounded-full bg-blue-500 text-white text-xs flex items-center justify-center hover:bg-blue-600 transition-colors"
+      >
+        i
+      </button>
+      {showTooltip && (
+        <div className="absolute left-0 top-6 z-50 w-80 p-4 bg-gray-900 text-white text-sm rounded-lg shadow-xl">
+          <div className="font-semibold mb-2">🏠 Kira-Taksit Çakışması Nedir?</div>
+          <div className="space-y-2 text-xs leading-relaxed">
+            <p>
+              <strong>Durum:</strong> TOKİ sözleşmesi imzaladığınızda taksitler başlar,
+              ancak konut teslimi 18-36 ay sonra olabilir.
+            </p>
+            <p>
+              <strong>Sonuç:</strong> Bu sürede hem <span className="text-orange-300">kira</span> hem de{' '}
+              <span className="text-blue-300">taksit</span> ödersiniz.
+            </p>
+            <p>
+              <strong>Örnek:</strong> İlk 24 ay → 15.000₺ kira + 8.250₺ taksit =
+              <span className="text-red-300 font-bold"> 23.250₺/ay</span>
+            </p>
+          </div>
+          <div className="mt-3 pt-2 border-t border-gray-700 text-xs text-gray-400">
+            💡 Bu maliyet hesaplamaya otomatik dahil edilir
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
 function StepIndicator({ step, current, completed, label }: { step: number; current: boolean; completed: boolean; label: string }) {
   return (
     <div className={`flex items-center gap-2 ${current ? 'text-blue-600 font-semibold' : completed ? 'text-green-600' : 'text-gray-400'}`}>

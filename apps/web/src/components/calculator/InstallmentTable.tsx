@@ -66,7 +66,8 @@ export function InstallmentTable({ result }: InstallmentTableProps) {
   // Limit display for initial view
   const displayData: (YearlyData | typeof result.periodData[0])[] = useMemo(() => {
     if (viewMode === 'yearly') {
-      return showFullTable ? yearlyData : yearlyData.slice(0, 10);
+      // Yıllık görünümde ilk 24 ay (2 yıl), sonra tümü
+      return showFullTable ? result.periodData : result.periodData.slice(0, 24);
     }
     if (viewMode === 'monthly') {
       return showFullTable ? result.periodData : result.periodData.slice(0, 36);
@@ -122,39 +123,78 @@ export function InstallmentTable({ result }: InstallmentTableProps) {
         </button>
       </div>
 
-      {/* Yearly View */}
+      {/* Yearly View - Month by Month with Year Headers */}
       {viewMode === 'yearly' && (
         <div className="overflow-x-auto rounded-lg border">
           <table className="w-full text-sm">
-            <thead className="bg-gray-50 border-b">
+            <thead className="bg-gray-50 border-b sticky top-0">
               <tr>
-                <th className="px-4 py-3 text-left font-semibold">Yıl</th>
-                <th className="px-4 py-3 text-right font-semibold">Yıllık Taksit</th>
-                <th className="px-4 py-3 text-right font-semibold">Yıllık Kira</th>
-                <th className="px-4 py-3 text-right font-semibold">Toplam Ödeme</th>
-                <th className="px-4 py-3 text-right font-semibold">Ort. Gelir</th>
+                <th className="px-4 py-3 text-left font-semibold">Dönem</th>
+                <th className="px-4 py-3 text-right font-semibold">Taksit</th>
+                <th className="px-4 py-3 text-right font-semibold">Kira</th>
+                <th className="px-4 py-3 text-right font-semibold">Toplam</th>
+                <th className="px-4 py-3 text-right font-semibold">Gelir</th>
                 <th className="px-4 py-3 text-right font-semibold">Ödeme/Gelir</th>
                 <th className="px-4 py-3 text-center font-semibold">Durum</th>
               </tr>
             </thead>
-            <tbody className="divide-y">
-              {(displayData as YearlyData[]).map((row) => {
-                const badge = getSustainabilityBadge(row.maxRatio);
+            <tbody>
+              {(displayData as typeof result.periodData).map((period) => {
+                const badge = getSustainabilityBadge(period.paymentToIncomeRatio);
+                const isYearStart = period.period % 12 === 1;
+                const yearNumber = Math.ceil(period.period / 12);
+                const monthInYear = ((period.period - 1) % 12) + 1;
+                const isIncreaseMonth = period.period > 1 && (period.period - 1) % 6 === 0;
+                const isIncomeIncreaseMonth = period.period > 1 && (period.period - 1) % 12 === 0;
+
                 return (
-                  <tr key={row.year} className="hover:bg-gray-50 transition-colors">
-                    <td className="px-4 py-3 font-medium">{row.year}. Yıl</td>
-                    <td className="px-4 py-3 text-right">{formatCurrency(row.totalInstallment)}</td>
+                  <tr
+                    key={period.period}
+                    className={`hover:bg-gray-50 transition-colors ${
+                      isYearStart ? 'border-t-2 border-blue-200 bg-blue-50/30' : ''
+                    } ${isIncreaseMonth ? 'bg-orange-50/30' : ''}`}
+                  >
+                    <td className="px-4 py-3">
+                      <div className="flex items-center gap-2">
+                        <span className={`${isYearStart ? 'font-bold text-blue-700' : 'font-medium'}`}>
+                          {yearNumber}. Yıl - {monthInYear}. Ay
+                        </span>
+                        {isIncreaseMonth && (
+                          <span className="text-xs bg-orange-200 text-orange-800 px-2 py-0.5 rounded-full font-medium">
+                            Taksit Artışı
+                          </span>
+                        )}
+                        {isIncomeIncreaseMonth && (
+                          <span className="text-xs bg-green-200 text-green-800 px-2 py-0.5 rounded-full font-medium">
+                            Gelir Artışı
+                          </span>
+                        )}
+                      </div>
+                    </td>
                     <td className="px-4 py-3 text-right">
-                      {row.hasRent ? (
-                        <span className="text-orange-600">{formatCurrency(row.totalRent)}</span>
+                      <span className={isIncreaseMonth ? 'font-bold text-orange-700' : ''}>
+                        {formatCurrency(period.installmentAmount)}
+                      </span>
+                    </td>
+                    <td className="px-4 py-3 text-right">
+                      {period.isRentingPeriod ? (
+                        <span className={`text-orange-600 ${isIncomeIncreaseMonth ? 'font-bold' : ''}`}>
+                          {formatCurrency(period.rentAmount)}
+                        </span>
                       ) : (
                         <span className="text-gray-400">-</span>
                       )}
                     </td>
-                    <td className="px-4 py-3 text-right font-semibold">{formatCurrency(row.totalPayment)}</td>
-                    <td className="px-4 py-3 text-right text-gray-600">{formatCurrency(Math.round(row.avgIncome))}</td>
-                    <td className={`px-4 py-3 text-right font-medium ${getSustainabilityColor(row.maxRatio)}`}>
-                      {formatPercentage(row.maxRatio)}
+                    <td className="px-4 py-3 text-right font-semibold">
+                      {formatCurrency(period.totalMonthlyPayment)}
+                    </td>
+                    <td className="px-4 py-3 text-right">
+                      <span className={isIncomeIncreaseMonth ? 'font-bold text-green-700' : 'text-gray-600'}>
+                        {formatCurrency(period.householdIncome)}
+                      </span>
+                    </td>
+                    <td className={`px-4 py-3 text-right font-medium ${getSustainabilityColor(period.paymentToIncomeRatio)}`}>
+                      {formatPercentage(period.paymentToIncomeRatio)}
                     </td>
                     <td className="px-4 py-3 text-center">
                       <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${badge.class}`}>
@@ -167,13 +207,13 @@ export function InstallmentTable({ result }: InstallmentTableProps) {
             </tbody>
           </table>
 
-          {!showFullTable && yearlyData.length > 10 && (
+          {!showFullTable && result.periodData.length > 24 && (
             <div className="p-4 border-t bg-gray-50 text-center">
               <button
                 onClick={() => setShowFullTable(true)}
                 className="text-blue-600 hover:text-blue-800 font-medium"
               >
-                Tüm {yearlyData.length} Yılı Göster ↓
+                Tüm 240 Ayı Göster (20 Yıl) ↓
               </button>
             </div>
           )}
@@ -184,7 +224,7 @@ export function InstallmentTable({ result }: InstallmentTableProps) {
                 onClick={() => setShowFullTable(false)}
                 className="text-blue-600 hover:text-blue-800 font-medium"
               >
-                Daralt ↑
+                Daralt (İlk 24 Ay) ↑
               </button>
             </div>
           )}
