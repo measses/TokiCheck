@@ -58,7 +58,7 @@ export function exportToExcel(result: ScenarioResult, housingInfo?: string) {
     period.isRentingPeriod ? period.rentAmount / 100 : 0,
     period.totalMonthlyPayment / 100,
     period.householdIncome / 100,
-    period.paymentToIncomeRatio.toFixed(2),
+    parseFloat(period.paymentToIncomeRatio.toFixed(2)),
     period.sustainabilityStatus === 'safe'
       ? 'Güvenli'
       : period.sustainabilityStatus === 'warning'
@@ -79,6 +79,9 @@ export function exportToExcel(result: ScenarioResult, housingInfo?: string) {
     { wch: 15 },
     { wch: 12 },
   ];
+
+  // Add auto filter to header row
+  ws2['!autofilter'] = { ref: `A1:H${monthlyData.length + 1}` };
 
   XLSX.utils.book_append_sheet(wb, ws2, 'Aylık Detay');
 
@@ -114,12 +117,15 @@ export function exportToExcel(result: ScenarioResult, housingInfo?: string) {
   // Set column widths
   ws3['!cols'] = [
     { wch: 8 },
+    { wch: 20 },
     { wch: 18 },
-    { wch: 18 },
-    { wch: 18 },
+    { wch: 20 },
     { wch: 18 },
     { wch: 15 },
   ];
+
+  // Add auto filter to header row
+  ws3['!autofilter'] = { ref: `A1:F${yearlyData.length + 1}` };
 
   XLSX.utils.book_append_sheet(wb, ws3, 'Yıllık Özet');
 

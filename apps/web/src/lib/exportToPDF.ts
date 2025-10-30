@@ -130,12 +130,12 @@ export function exportToPDF(result: ScenarioResult, housingInfo?: string) {
   doc.addPage();
 
   doc.setFontSize(14);
-  doc.text(turkishToLatin('Aylik Detay (Ilk 60 Ay)'), 14, 20);
+  doc.text(turkishToLatin('Aylik Detay (Tum 240 Ay)'), 14, 20);
 
-  // Monthly Detail Table (first 60 months for space)
+  // Monthly Detail Table (all 240 months with auto page break)
   const monthlyHeaders = [[turkishToLatin('Ay'), turkishToLatin('Taksit'), turkishToLatin('Kira'), turkishToLatin('Toplam'), turkishToLatin('Gelir'), turkishToLatin('Oran'), turkishToLatin('Durum')]];
 
-  const monthlyData = result.periodData.slice(0, 60).map((period) => [
+  const monthlyData = result.periodData.map((period) => [
     period.period.toString(),
     turkishToLatin(formatCurrency(period.installmentAmount).replace(/\s/g, '')),
     period.isRentingPeriod ? turkishToLatin(formatCurrency(period.rentAmount).replace(/\s/g, '')) : '-',
