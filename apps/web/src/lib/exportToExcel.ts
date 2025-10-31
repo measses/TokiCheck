@@ -8,7 +8,7 @@ export function exportToExcel(result: ScenarioResult, housingInfo?: string) {
 
   // Sheet 1: Özet (Summary)
   const ws1 = XLSX.utils.aoa_to_sheet([
-    ['TOKİ Hesaplama Raporu'],
+    ['Sosyal Konut Hesaplama Raporu'],
     [''],
     ['Tarih', new Date().toLocaleDateString('tr-TR')],
     ['Konut', housingInfo || '-'],
@@ -130,7 +130,7 @@ export function exportToExcel(result: ScenarioResult, housingInfo?: string) {
   XLSX.utils.book_append_sheet(wb, ws3, 'Yıllık Özet');
 
   // Generate filename with date
-  const filename = `TOKI_Hesaplama_${new Date().toISOString().split('T')[0]}.xlsx`;
+  const filename = `SosyalKonut_Hesaplama_${new Date().toISOString().split('T')[0]}.xlsx`;
 
   // Write the file
   XLSX.writeFile(wb, filename);

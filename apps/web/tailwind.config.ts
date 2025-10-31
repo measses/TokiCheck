@@ -50,11 +50,14 @@ const config: Config = {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))',
         },
-        // TOKİCheck custom colors
-        toki: {
-          green: '#2d5c3f',
-          'green-light': '#3a7a52',
-          'green-dark': '#1e3d2a',
+        // Sosyal Konut App custom colors (from logo)
+        brand: {
+          teal: '#5A8C8C',
+          'teal-light': '#6FA5A5',
+          'teal-dark': '#4A7373',
+          coral: '#E07856',
+          'coral-light': '#F08B6D',
+          'coral-dark': '#C96642',
         },
         sustainability: {
           safe: '#10b981',

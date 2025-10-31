@@ -8,23 +8,44 @@ export default function HomePage({ params: { locale } }: { params: { locale: str
     <div className="container mx-auto px-4 py-16">
       {/* Hero Section */}
       <section className="text-center mb-16">
-        <div className="inline-block bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm font-semibold mb-4">
+        <div className="inline-block bg-blue-50 text-blue-700 px-4 py-2 rounded-full text-sm font-semibold mb-4 border border-blue-200">
           🏗️ 500 Bin Sosyal Konut Projesi
         </div>
-        <h1 className="text-4xl md:text-6xl font-bold mb-4 text-primary">
-          TOKİ Başvurusu Yapmalı mıyım?
+        <h1 className="text-4xl md:text-6xl font-bold mb-4 text-gray-900">
+          Sosyal Konut Başvurusu Yapmalı mıyım?
         </h1>
-        <p className="text-xl text-muted-foreground mb-4 max-w-3xl mx-auto">
+        <p className="text-xl text-gray-600 mb-6 max-w-3xl mx-auto">
           Taksit artışları, gelir dengesi ve kira-taksit çakışmasını şeffaf tablolar ve grafiklerle görün
         </p>
-        <p className="text-lg text-muted-foreground mb-8 max-w-3xl mx-auto">
-          📅 <strong>Başvurular:</strong> 10 Kasım - 19 Aralık 2025 •
-          🎲 <strong>Kura:</strong> 29 Aralık 2025 - 27 Şubat 2026 •
-          🏠 <strong>Teslimat:</strong> Mart 2027
-        </p>
+
+        {/* Timeline - Vertical Layout */}
+        <div className="max-w-md mx-auto mb-8 space-y-3">
+          <div className="flex items-center gap-3 p-3 bg-blue-50 rounded-lg border border-blue-200">
+            <span className="text-2xl">📅</span>
+            <div className="text-left">
+              <div className="font-semibold text-gray-900">Başvurular</div>
+              <div className="text-sm text-gray-600">10 Kasım - 19 Aralık 2025</div>
+            </div>
+          </div>
+          <div className="flex items-center gap-3 p-3 bg-orange-50 rounded-lg border border-orange-200">
+            <span className="text-2xl">🎲</span>
+            <div className="text-left">
+              <div className="font-semibold text-gray-900">Kura Çekimi</div>
+              <div className="text-sm text-gray-600">29 Aralık 2025 - 27 Şubat 2026</div>
+            </div>
+          </div>
+          <div className="flex items-center gap-3 p-3 bg-green-50 rounded-lg border border-green-200">
+            <span className="text-2xl">🏠</span>
+            <div className="text-left">
+              <div className="font-semibold text-gray-900">Teslimat Başlangıcı</div>
+              <div className="text-sm text-gray-600">Mart 2027</div>
+            </div>
+          </div>
+        </div>
+
         <Link
           href={`/${locale}/calculator`}
-          className="inline-block bg-primary text-primary-foreground px-8 py-3 rounded-lg text-lg font-semibold hover:bg-primary/90 transition-colors"
+          className="inline-block bg-brand-teal text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-brand-teal-dark transition-colors shadow-md hover:shadow-lg"
         >
           Hemen Hesapla
         </Link>
@@ -32,54 +53,54 @@ export default function HomePage({ params: { locale } }: { params: { locale: str
 
       {/* Features Grid */}
       <section className="mb-16">
-        <h2 className="text-3xl font-bold text-center mb-8">
+        <h2 className="text-3xl font-bold text-center mb-8 text-gray-900">
           Neler Hesaplayabilirsiniz?
         </h2>
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <div className="p-6 border rounded-lg hover:shadow-lg transition-shadow">
-            <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
-              <svg className="w-6 h-6 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <div className="p-6 border border-gray-200 rounded-lg hover:shadow-lg transition-shadow bg-white">
+            <div className="w-12 h-12 bg-blue-50 rounded-lg flex items-center justify-center mb-4">
+              <svg className="w-6 h-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
               </svg>
             </div>
-            <h3 className="text-lg font-semibold mb-2">Taksit Simülasyonu</h3>
-            <p className="text-sm text-muted-foreground">
+            <h3 className="text-lg font-semibold mb-2 text-gray-900">Taksit Simülasyonu</h3>
+            <p className="text-sm text-gray-600">
               6 ayda bir artışlı, 240 aylık taksit takvimi
             </p>
           </div>
 
-          <div className="p-6 border rounded-lg hover:shadow-lg transition-shadow">
-            <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
-              <svg className="w-6 h-6 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <div className="p-6 border border-gray-200 rounded-lg hover:shadow-lg transition-shadow bg-white">
+            <div className="w-12 h-12 bg-green-50 rounded-lg flex items-center justify-center mb-4">
+              <svg className="w-6 h-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
-            <h3 className="text-lg font-semibold mb-2">Gelir Projeksiyonu</h3>
-            <p className="text-sm text-muted-foreground">
+            <h3 className="text-lg font-semibold mb-2 text-gray-900">Gelir Projeksiyonu</h3>
+            <p className="text-sm text-gray-600">
               Hane gelirinizin zaman içindeki değişimi
             </p>
           </div>
 
-          <div className="p-6 border rounded-lg hover:shadow-lg transition-shadow">
-            <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
-              <svg className="w-6 h-6 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <div className="p-6 border border-gray-200 rounded-lg hover:shadow-lg transition-shadow bg-white">
+            <div className="w-12 h-12 bg-purple-50 rounded-lg flex items-center justify-center mb-4">
+              <svg className="w-6 h-6 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
-            <h3 className="text-lg font-semibold mb-2">Sürdürülebilirlik</h3>
-            <p className="text-sm text-muted-foreground">
+            <h3 className="text-lg font-semibold mb-2 text-gray-900">Sürdürülebilirlik</h3>
+            <p className="text-sm text-gray-600">
               Taksit/gelir oranına göre risk analizi
             </p>
           </div>
 
-          <div className="p-6 border rounded-lg hover:shadow-lg transition-shadow">
-            <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
-              <svg className="w-6 h-6 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <div className="p-6 border border-gray-200 rounded-lg hover:shadow-lg transition-shadow bg-white">
+            <div className="w-12 h-12 bg-amber-50 rounded-lg flex items-center justify-center mb-4">
+              <svg className="w-6 h-6 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
-            <h3 className="text-lg font-semibold mb-2">Kira-Taksit Çakışması</h3>
-            <p className="text-sm text-muted-foreground">
+            <h3 className="text-lg font-semibold mb-2 text-gray-900">Kira-Taksit Çakışması</h3>
+            <p className="text-sm text-gray-600">
               Teslimat gecikmesi dönemindeki ek maliyet
             </p>
           </div>
@@ -207,17 +228,17 @@ export default function HomePage({ params: { locale } }: { params: { locale: str
       </section>
 
       {/* CTA */}
-      <section className="text-center py-12 bg-accent rounded-lg">
-        <h2 className="text-2xl font-bold mb-4">
+      <section className="text-center py-12 bg-gray-50 rounded-lg border border-gray-200">
+        <h2 className="text-2xl font-bold mb-4 text-gray-900">
           Açık Kaynak ve Ücretsiz
         </h2>
-        <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
-          TOKİCheck açık kaynak bir projedir. Kodları inceleyebilir, katkıda bulunabilir ve şeffaf hesaplamaları görebilirsiniz.
+        <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
+          Sosyal Konut App açık kaynak bir projedir. Kodları inceleyebilir, katkıda bulunabilir ve şeffaf hesaplamaları görebilirsiniz.
         </p>
         <div className="flex justify-center gap-4">
           <Link
             href={`/${locale}/calculator`}
-            className="inline-block bg-primary text-primary-foreground px-6 py-2 rounded-lg font-semibold hover:bg-primary/90 transition-colors"
+            className="inline-block bg-brand-teal text-white px-6 py-2 rounded-lg font-semibold hover:bg-brand-teal-dark transition-colors"
           >
             Hesaplamaya Başla
           </Link>
@@ -225,7 +246,7 @@ export default function HomePage({ params: { locale } }: { params: { locale: str
             href="https://github.com/measses/TokiCheck"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block border border-primary text-primary px-6 py-2 rounded-lg font-semibold hover:bg-primary/10 transition-colors"
+            className="inline-block border border-gray-300 text-gray-700 px-6 py-2 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
           >
             GitHub'da İncele
           </a>

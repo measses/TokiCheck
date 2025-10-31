@@ -24,8 +24,8 @@ export function exportToPDF(result: ScenarioResult, housingInfo?: string) {
 
   // Title
   doc.setFontSize(20);
-  doc.setTextColor(37, 99, 235); // blue-600
-  doc.text(turkishToLatin('TOKI Hesaplama Raporu'), 105, 20, { align: 'center' });
+  doc.setTextColor(90, 140, 140); // teal from logo
+  doc.text(turkishToLatin('Sosyal Konut Hesaplama Raporu'), 105, 20, { align: 'center' });
 
   // Date and Housing Info
   doc.setFontSize(10);
@@ -190,7 +190,7 @@ export function exportToPDF(result: ScenarioResult, housingInfo?: string) {
     doc.setFontSize(8);
     doc.setTextColor(150, 150, 150);
     doc.text(
-      turkishToLatin(`Sayfa ${i} / ${pageCount} - TOKICheck tarafindan olusturuldu`),
+      turkishToLatin(`Sayfa ${i} / ${pageCount} - Sosyal Konut App tarafindan olusturuldu`),
       105,
       290,
       { align: 'center' }
@@ -198,7 +198,7 @@ export function exportToPDF(result: ScenarioResult, housingInfo?: string) {
   }
 
   // Generate filename with date
-  const filename = `TOKI_Hesaplama_${new Date().toISOString().split('T')[0]}.pdf`;
+  const filename = `SosyalKonut_Hesaplama_${new Date().toISOString().split('T')[0]}.pdf`;
 
   // Save the PDF
   doc.save(filename);

@@ -128,7 +128,7 @@ export default function CalculatorPage() {
     <div className="container mx-auto px-4 py-8 max-w-7xl">
       {/* Progress Steps */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-6">TOKİ Taksit Hesaplayıcı</h1>
+        <h1 className="text-3xl font-bold mb-6">Sosyal Konut Taksit Hesaplayıcı</h1>
         <div className="flex items-center gap-2 mb-2">
           <StepIndicator step={1} current={currentStep === 'housing'} completed={currentStep !== 'housing'} label="Konut" />
           <ProgressLine completed={currentStep !== 'housing'} />
