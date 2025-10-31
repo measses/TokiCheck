@@ -6,6 +6,8 @@ import { locales } from '@/i18n';
 import LocaleAttributes from './locale-attributes';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import CookieConsent from '@/components/CookieConsent';
+import DisclaimerModal from '@/components/DisclaimerModal';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -38,6 +40,8 @@ export default async function LocaleLayout({
           <Navbar locale={locale} />
           <main>{children}</main>
           <Footer />
+          <DisclaimerModal />
+          <CookieConsent />
         </div>
       </NextIntlClientProvider>
     </>
