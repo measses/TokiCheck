@@ -1,7 +1,6 @@
 {
   "common": {
-    "appName": "TOKİCheck",
-    "tagline": "Kira → Taksit karar destek aracı",
+    "appName": "Sosyal Konut App",
     "calculate": "Hesapla",
     "reset": "Sıfırla",
     "share": "Paylaş",
@@ -13,15 +12,23 @@
   "nav": {
     "home": "Ana Sayfa",
     "calculator": "Hesaplama",
-    "scenarios": "Senaryolar",
-    "about": "Hakkında",
-    "language": "Dil"
+    "faq": "S.S.S"
   },
   "home": {
-    "hero": {
-      "title": "TOKİ Başvurusu Yapmalı mıyım?",
-      "subtitle": "Taksit artışları, gelir dengesi ve kira-taksit çakışmasını şeffaf tablolar ve grafiklerle görün",
-      "cta": "Hemen Hesapla"
+    "badge": "500 Bin Sosyal Konut Projesi",
+    "title": "Sosyal Konut Başvurusu Yapmalı mıyım?",
+    "subtitle": "Taksit artışları, gelir dengesi ve kira-taksit çakışmasını şeffaf tablolar ve grafiklerle görün",
+    "calculateButton": "Hemen Hesapla",
+    "timeline": {
+      "applications": "Başvurular",
+      "applicationsDate": "10 Kasım - 19 Aralık 2025",
+      "lottery": "Kura Çekimi",
+      "lotteryDate": "29 Aralık 2025 - 27 Şubat 2026",
+      "delivery": "Teslimat Başlangıcı",
+      "deliveryDate": "Mart 2027"
+    },
+    "projectInfo": {
+      "title": "Proje Hakkında"
     },
     "features": {
       "title": "Neler Hesaplayabilirsiniz?",
@@ -49,7 +56,22 @@
       "downPayment": "Peşinatı Olan",
       "comparing": "Karşılaştırmacı",
       "advisor": "Danışman/İçerik Üreticisi"
+    },
+    "cta": {
+      "title": "Açık Kaynak ve Ücretsiz",
+      "description": "Sosyal Konut App açık kaynak bir projedir. Kodları inceleyebilir, katkıda bulunabilir ve şeffaf hesaplamaları görebilirsiniz.",
+      "calculate": "Hesaplamaya Başla",
+      "github": "GitHub'da İncele"
     }
+  },
+  "faq": {
+    "badge": "Sıkça Sorulan Sorular",
+    "title": "Sosyal Konut Hakkında Her Şey",
+    "subtitle": "500 Bin Sosyal Konut projesi, başvuru süreci ve hesaplama aracımız hakkında merak ettikleriniz",
+    "ctaTitle": "Sorunuz mu var?",
+    "ctaDescription": "Daha fazla soru için resmi kaynaklara başvurabilir veya hesaplama aracımızı kullanarak kendi durumunuzu analiz edebilirsiniz.",
+    "calculate": "Hesaplamaya Başla",
+    "officialSite": "TOKİ Resmi Sitesi"
   },
   "calculator": {
     "title": "Taksit Hesaplayıcı",
@@ -115,12 +137,9 @@
     }
   },
   "footer": {
-    "description": "TOKİ başvurusu düşünenler için açık kaynak karar destek aracı",
-    "links": {
-      "github": "GitHub",
-      "docs": "Dokümantasyon",
-      "contribute": "Katkıda Bulun"
-    },
-    "disclaimer": "Bu araç bilgilendirme amaçlıdır. Resmi TOKİ verileri için toki.gov.tr adresini ziyaret edin."
+    "description": "Sosyal Konut App - Açık kaynak sosyal konut karar destek aracı",
+    "disclaimer": "Bu araç bilgilendirme amaçlıdır. Resmi veriler için",
+    "and": "ve",
+    "visit": "adreslerini ziyaret edin."
   }
 }

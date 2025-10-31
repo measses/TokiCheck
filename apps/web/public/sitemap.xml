@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <!-- Turkish Home Page -->
+  <url>
+    <loc>https://sosyalkonut.app/tr</loc>
+    <lastmod>2025-10-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://sosyalkonut.app/en"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://sosyalkonut.app/tr"/>
+  </url>
+
+  <!-- English Home Page -->
+  <url>
+    <loc>https://sosyalkonut.app/en</loc>
+    <lastmod>2025-10-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://sosyalkonut.app/en"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://sosyalkonut.app/tr"/>
+  </url>
+
+  <!-- Turkish Calculator Page -->
+  <url>
+    <loc>https://sosyalkonut.app/tr/calculator</loc>
+    <lastmod>2025-10-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://sosyalkonut.app/en/calculator"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://sosyalkonut.app/tr/calculator"/>
+  </url>
+
+  <!-- English Calculator Page -->
+  <url>
+    <loc>https://sosyalkonut.app/en/calculator</loc>
+    <lastmod>2025-10-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://sosyalkonut.app/en/calculator"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://sosyalkonut.app/tr/calculator"/>
+  </url>
+
+  <!-- Turkish FAQ Page -->
+  <url>
+    <loc>https://sosyalkonut.app/tr/faq</loc>
+    <lastmod>2025-10-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://sosyalkonut.app/en/faq"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://sosyalkonut.app/tr/faq"/>
+  </url>
+
+  <!-- English FAQ Page -->
+  <url>
+    <loc>https://sosyalkonut.app/en/faq</loc>
+    <lastmod>2025-10-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://sosyalkonut.app/en/faq"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://sosyalkonut.app/tr/faq"/>
+  </url>
+
+</urlset>

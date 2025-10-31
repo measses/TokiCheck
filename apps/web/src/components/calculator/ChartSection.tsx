@@ -43,13 +43,20 @@ export function ChartSection({ result }: ChartSectionProps) {
   const activeChartData = charts.find((c) => c.id === activeChart);
 
   return (
-    <div className="space-y-4">
-      {/* Toggle Charts Visibility */}
-      <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold">Grafikler</h2>
+    <div className="bg-white rounded-xl border-2 border-gray-200 overflow-hidden">
+      {/* Header */}
+      <div className="flex items-center justify-between p-6 border-b bg-gray-50">
+        <div className="flex items-center gap-3">
+          <div className="bg-blue-100 p-2 rounded-lg">
+            <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+            </svg>
+          </div>
+          <h2 className="text-xl font-bold text-gray-900">Grafikler ve Analizler</h2>
+        </div>
         <button
           onClick={() => setShowCharts(!showCharts)}
-          className="text-blue-600 hover:text-blue-800 font-medium flex items-center gap-2"
+          className="text-brand-teal hover:text-teal-700 font-medium flex items-center gap-2 transition-colors"
         >
           {showCharts ? (
             <>
@@ -70,37 +77,38 @@ export function ChartSection({ result }: ChartSectionProps) {
       </div>
 
       {showCharts && (
-        <div className="border rounded-lg p-6 bg-white">
-          {/* Chart Tabs */}
-          <div className="flex gap-2 mb-6 border-b overflow-x-auto">
+        <div className="p-6">
+          {/* Chart Tabs - Card Style */}
+          <div className="grid grid-cols-3 gap-3 mb-6">
             {charts.map((chart) => (
               <button
                 key={chart.id}
                 onClick={() => setActiveChart(chart.id)}
-                className={`px-4 py-3 font-medium transition-colors whitespace-nowrap ${
+                className={`p-4 rounded-lg border-2 transition-all text-left ${
                   activeChart === chart.id
-                    ? 'border-b-2 border-blue-600 text-blue-600'
-                    : 'text-gray-600 hover:text-gray-900'
+                    ? 'border-blue-500 bg-blue-50 shadow-md'
+                    : 'border-gray-200 bg-white hover:border-gray-300 hover:bg-gray-50'
                 }`}
               >
-                <span className="mr-2">{chart.icon}</span>
-                {chart.label}
+                <div className="flex items-center gap-3 mb-2">
+                  <span className="text-2xl">{chart.icon}</span>
+                  <span className={`font-semibold text-sm ${
+                    activeChart === chart.id ? 'text-blue-700' : 'text-gray-700'
+                  }`}>
+                    {chart.label}
+                  </span>
+                </div>
+                <p className={`text-xs ${
+                  activeChart === chart.id ? 'text-blue-600' : 'text-gray-500'
+                }`}>
+                  {chart.description}
+                </p>
               </button>
             ))}
           </div>
 
-          {/* Chart Description */}
-          {activeChartData && (
-            <div className="mb-4 p-3 bg-blue-50 rounded-lg border border-blue-200">
-              <p className="text-sm text-gray-700">
-                <span className="font-semibold">{activeChartData.icon} {activeChartData.label}:</span>{' '}
-                {activeChartData.description}
-              </p>
-            </div>
-          )}
-
-          {/* Active Chart */}
-          <div className="mt-6">
+          {/* Active Chart Container */}
+          <div className="bg-gray-50 rounded-lg p-6 border border-gray-200">
             {activeChartData?.component}
           </div>
         </div>

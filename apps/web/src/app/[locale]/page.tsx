@@ -1,21 +1,86 @@
 import Link from 'next/link';
-import { setRequestLocale } from 'next-intl/server';
+import { setRequestLocale, getTranslations } from 'next-intl/server';
+import Script from 'next/script';
 
-export default function HomePage({ params: { locale } }: { params: { locale: string } }) {
+export default async function HomePage({ params: { locale } }: { params: { locale: string } }) {
   // Enable static rendering
   setRequestLocale(locale);
+
+  const t = await getTranslations('home');
+
+  // JSON-LD structured data for SEO
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: 'Sosyal Konut App',
+    alternateName: '500 Bin Sosyal Konut Hesaplayıcı',
+    description: '500 Bin Sosyal Konut projesi için taksit hesaplama ve analiz aracı. 240 aylık taksit planı, kira-taksit çakışması analizi.',
+    url: 'https://sosyalkonut.app',
+    applicationCategory: 'FinanceApplication',
+    operatingSystem: 'Web Browser',
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'TRY',
+    },
+    inLanguage: ['tr', 'en'],
+    featureList: [
+      'Taksit simülasyonu (240 ay)',
+      'Kira-taksit çakışması analizi',
+      'Gelir projeksiyonu',
+      'Sürdürülebilirlik analizi',
+      'PDF ve Excel export',
+    ],
+    author: {
+      '@type': 'Person',
+      name: 'Mert Araz',
+      url: 'https://github.com/measses',
+    },
+    provider: {
+      '@type': 'Organization',
+      name: 'Sosyal Konut App',
+      url: 'https://sosyalkonut.app',
+    },
+  };
+
+  const breadcrumbData = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Ana Sayfa',
+        item: 'https://sosyalkonut.app/tr',
+      },
+    ],
+  };
+
   return (
-    <div className="container mx-auto px-4 py-16">
+    <>
+      {/* JSON-LD for Google Rich Snippets */}
+      <Script
+        id="home-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
+      <Script
+        id="breadcrumb-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbData) }}
+      />
+
+      <div className="container mx-auto px-4 py-16">
       {/* Hero Section */}
       <section className="text-center mb-16">
         <div className="inline-block bg-blue-50 text-blue-700 px-4 py-2 rounded-full text-sm font-semibold mb-4 border border-blue-200">
-          🏗️ 500 Bin Sosyal Konut Projesi
+          🏗️ {t('badge')}
         </div>
         <h1 className="text-4xl md:text-6xl font-bold mb-4 text-gray-900">
-          Sosyal Konut Başvurusu Yapmalı mıyım?
+          {t('title')}
         </h1>
         <p className="text-xl text-gray-600 mb-6 max-w-3xl mx-auto">
-          Taksit artışları, gelir dengesi ve kira-taksit çakışmasını şeffaf tablolar ve grafiklerle görün
+          {t('subtitle')}
         </p>
 
         {/* Timeline - Vertical Layout */}
@@ -23,22 +88,22 @@ export default function HomePage({ params: { locale } }: { params: { locale: str
           <div className="flex items-center gap-3 p-3 bg-blue-50 rounded-lg border border-blue-200">
             <span className="text-2xl">📅</span>
             <div className="text-left">
-              <div className="font-semibold text-gray-900">Başvurular</div>
-              <div className="text-sm text-gray-600">10 Kasım - 19 Aralık 2025</div>
+              <div className="font-semibold text-gray-900">{t('timeline.applications')}</div>
+              <div className="text-sm text-gray-600">{t('timeline.applicationsDate')}</div>
             </div>
           </div>
           <div className="flex items-center gap-3 p-3 bg-orange-50 rounded-lg border border-orange-200">
             <span className="text-2xl">🎲</span>
             <div className="text-left">
-              <div className="font-semibold text-gray-900">Kura Çekimi</div>
-              <div className="text-sm text-gray-600">29 Aralık 2025 - 27 Şubat 2026</div>
+              <div className="font-semibold text-gray-900">{t('timeline.lottery')}</div>
+              <div className="text-sm text-gray-600">{t('timeline.lotteryDate')}</div>
             </div>
           </div>
           <div className="flex items-center gap-3 p-3 bg-green-50 rounded-lg border border-green-200">
             <span className="text-2xl">🏠</span>
             <div className="text-left">
-              <div className="font-semibold text-gray-900">Teslimat Başlangıcı</div>
-              <div className="text-sm text-gray-600">Mart 2027</div>
+              <div className="font-semibold text-gray-900">{t('timeline.delivery')}</div>
+              <div className="text-sm text-gray-600">{t('timeline.deliveryDate')}</div>
             </div>
           </div>
         </div>
@@ -47,14 +112,14 @@ export default function HomePage({ params: { locale } }: { params: { locale: str
           href={`/${locale}/calculator`}
           className="inline-block bg-brand-teal text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-brand-teal-dark transition-colors shadow-md hover:shadow-lg"
         >
-          Hemen Hesapla
+          {t('calculateButton')}
         </Link>
       </section>
 
       {/* Features Grid */}
       <section className="mb-16">
         <h2 className="text-3xl font-bold text-center mb-8 text-gray-900">
-          Neler Hesaplayabilirsiniz?
+          {t('features.title')}
         </h2>
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           <div className="p-6 border border-gray-200 rounded-lg hover:shadow-lg transition-shadow bg-white">
@@ -63,9 +128,9 @@ export default function HomePage({ params: { locale } }: { params: { locale: str
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
               </svg>
             </div>
-            <h3 className="text-lg font-semibold mb-2 text-gray-900">Taksit Simülasyonu</h3>
+            <h3 className="text-lg font-semibold mb-2 text-gray-900">{t('features.installment.title')}</h3>
             <p className="text-sm text-gray-600">
-              6 ayda bir artışlı, 240 aylık taksit takvimi
+              {t('features.installment.description')}
             </p>
           </div>
 
@@ -75,9 +140,9 @@ export default function HomePage({ params: { locale } }: { params: { locale: str
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
-            <h3 className="text-lg font-semibold mb-2 text-gray-900">Gelir Projeksiyonu</h3>
+            <h3 className="text-lg font-semibold mb-2 text-gray-900">{t('features.income.title')}</h3>
             <p className="text-sm text-gray-600">
-              Hane gelirinizin zaman içindeki değişimi
+              {t('features.income.description')}
             </p>
           </div>
 
@@ -87,9 +152,9 @@ export default function HomePage({ params: { locale } }: { params: { locale: str
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
-            <h3 className="text-lg font-semibold mb-2 text-gray-900">Sürdürülebilirlik</h3>
+            <h3 className="text-lg font-semibold mb-2 text-gray-900">{t('features.sustainability.title')}</h3>
             <p className="text-sm text-gray-600">
-              Taksit/gelir oranına göre risk analizi
+              {t('features.sustainability.description')}
             </p>
           </div>
 
@@ -99,9 +164,9 @@ export default function HomePage({ params: { locale } }: { params: { locale: str
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
-            <h3 className="text-lg font-semibold mb-2 text-gray-900">Kira-Taksit Çakışması</h3>
+            <h3 className="text-lg font-semibold mb-2 text-gray-900">{t('features.overlap.title')}</h3>
             <p className="text-sm text-gray-600">
-              Teslimat gecikmesi dönemindeki ek maliyet
+              {t('features.overlap.description')}
             </p>
           </div>
         </div>
@@ -109,7 +174,7 @@ export default function HomePage({ params: { locale } }: { params: { locale: str
 
       {/* Project Info */}
       <section className="mb-16 max-w-5xl mx-auto">
-        <h2 className="text-3xl font-bold text-center mb-8">Proje Hakkında</h2>
+        <h2 className="text-3xl font-bold text-center mb-8">{t('projectInfo.title')}</h2>
         <div className="grid md:grid-cols-2 gap-6">
           {/* Başvuru Şartları */}
           <div className="border rounded-lg p-6 bg-blue-50/50">
@@ -230,17 +295,17 @@ export default function HomePage({ params: { locale } }: { params: { locale: str
       {/* CTA */}
       <section className="text-center py-12 bg-gray-50 rounded-lg border border-gray-200">
         <h2 className="text-2xl font-bold mb-4 text-gray-900">
-          Açık Kaynak ve Ücretsiz
+          {t('cta.title')}
         </h2>
         <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
-          Sosyal Konut App açık kaynak bir projedir. Kodları inceleyebilir, katkıda bulunabilir ve şeffaf hesaplamaları görebilirsiniz.
+          {t('cta.description')}
         </p>
         <div className="flex justify-center gap-4">
           <Link
             href={`/${locale}/calculator`}
             className="inline-block bg-brand-teal text-white px-6 py-2 rounded-lg font-semibold hover:bg-brand-teal-dark transition-colors"
           >
-            Hesaplamaya Başla
+            {t('cta.calculate')}
           </Link>
           <a
             href="https://github.com/measses/TokiCheck"
@@ -248,10 +313,11 @@ export default function HomePage({ params: { locale } }: { params: { locale: str
             rel="noopener noreferrer"
             className="inline-block border border-gray-300 text-gray-700 px-6 py-2 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
           >
-            GitHub'da İncele
+            {t('cta.github')}
           </a>
         </div>
       </section>
     </div>
+    </>
   );
 }

@@ -20,14 +20,14 @@ export default function CalculatorPage() {
   const [result, setResult] = useState<ReturnType<typeof calculateScenario> | null>(null);
   const [isCalculating, setIsCalculating] = useState(false);
 
-  // Form states
-  const [monthlyIncome, setMonthlyIncome] = useState(100_000); // 100,000 TL (as TL, not kuruş)
-  const [incomeIncrease, setIncomeIncrease] = useState(15);
+  // Form states (use string to allow empty state, convert to number when needed)
+  const [monthlyIncome, setMonthlyIncome] = useState<string>('100000'); // 100,000 TL (as TL, not kuruş)
+  const [incomeIncrease, setIncomeIncrease] = useState<string>('15');
   const [isRenting, setIsRenting] = useState(true); // Yeni: Kiracı mı?
-  const [monthlyRent, setMonthlyRent] = useState(15_000);
-  const [rentIncrease, setRentIncrease] = useState(25);
-  const [deliveryDelay, setDeliveryDelay] = useState(24);
-  const [installmentIncrease, setInstallmentIncrease] = useState(7.5);
+  const [monthlyRent, setMonthlyRent] = useState<string>('15000');
+  const [rentIncrease, setRentIncrease] = useState<string>('25');
+  const [deliveryDelay, setDeliveryDelay] = useState<string>('24');
+  const [installmentIncrease, setInstallmentIncrease] = useState<string>('7.5');
   const [selectedPreset, setSelectedPreset] = useState<'optimistic' | 'moderate' | 'pessimistic'>('moderate');
 
   // Scroll to top when step changes
@@ -43,10 +43,10 @@ export default function CalculatorPage() {
   const handlePresetSelect = (preset: typeof selectedPreset) => {
     setSelectedPreset(preset);
     const presetData = DEFAULT_PRESETS[preset];
-    setInstallmentIncrease(presetData.installmentIncreasePercentage);
-    setIncomeIncrease(presetData.incomeIncreasePercentage);
-    setRentIncrease(presetData.rentIncreasePercentage);
-    setDeliveryDelay(presetData.deliveryDelayMonths);
+    setInstallmentIncrease(String(presetData.installmentIncreasePercentage));
+    setIncomeIncrease(String(presetData.incomeIncreasePercentage));
+    setRentIncrease(String(presetData.rentIncreasePercentage));
+    setDeliveryDelay(String(presetData.deliveryDelayMonths));
   };
 
   const handleCalculate = () => {
@@ -62,7 +62,7 @@ export default function CalculatorPage() {
           downPayment: selectedHousing.downPayment,
           increaseConfig: {
             method: 'fixed-percentage',
-            percentagePerPeriod: installmentIncrease,
+            percentagePerPeriod: Number(installmentIncrease) || 0,
             increasePeriod: 6,
             increasePeriodUnit: 'month',
           },
@@ -71,22 +71,22 @@ export default function CalculatorPage() {
           householdMembers: [
             {
               id: 'member1',
-              monthlyGrossIncome: monthlyIncome * 100,
-              monthlyNetIncome: monthlyIncome * 100,
+              monthlyGrossIncome: (Number(monthlyIncome) || 0) * 100,
+              monthlyNetIncome: (Number(monthlyIncome) || 0) * 100,
               employmentStatus: 'employed',
               increaseMethod: 'fixed-percentage',
-              annualIncreasePercentage: incomeIncrease,
+              annualIncreasePercentage: Number(incomeIncrease) || 0,
             },
           ],
           defaultIncreaseMethod: 'fixed-percentage',
-          defaultAnnualIncreasePercentage: incomeIncrease,
+          defaultAnnualIncreasePercentage: Number(incomeIncrease) || 0,
           projectionPeriods: 240,
           projectionPeriodUnit: 'month',
         },
         rentConfig: {
-          monthlyRent: isRenting ? monthlyRent * 100 : 0,
-          annualIncreasePercentage: isRenting ? rentIncrease : 0,
-          deliveryDelayMonths: isRenting ? deliveryDelay : 0,
+          monthlyRent: isRenting ? (Number(monthlyRent) || 0) * 100 : 0,
+          annualIncreasePercentage: isRenting ? (Number(rentIncrease) || 0) : 0,
+          deliveryDelayMonths: isRenting ? (Number(deliveryDelay) || 0) : 0,
         },
       };
 
@@ -208,14 +208,14 @@ export default function CalculatorPage() {
                 <FormInput
                   label="Aylık Net Gelir (₺)"
                   value={monthlyIncome}
-                  onChange={(e) => setMonthlyIncome(Number(e.target.value))}
+                  onChange={(e) => setMonthlyIncome(e.target.value)}
                   type="number"
                   step="1000"
                 />
                 <FormInput
                   label="Yıllık Gelir Artışı (%)"
                   value={incomeIncrease}
-                  onChange={(e) => setIncomeIncrease(Number(e.target.value))}
+                  onChange={(e) => setIncomeIncrease(e.target.value)}
                   type="number"
                   step="1"
                 />
@@ -248,21 +248,21 @@ export default function CalculatorPage() {
                     <FormInput
                       label="Aylık Kira (₺)"
                       value={monthlyRent}
-                      onChange={(e) => setMonthlyRent(Number(e.target.value))}
+                      onChange={(e) => setMonthlyRent(e.target.value)}
                       type="number"
                       step="1000"
                     />
                     <FormInput
                       label="Yıllık Kira Artışı (%)"
                       value={rentIncrease}
-                      onChange={(e) => setRentIncrease(Number(e.target.value))}
+                      onChange={(e) => setRentIncrease(e.target.value)}
                       type="number"
                       step="1"
                     />
                     <FormInput
                       label="Tahmini Teslimat Gecikmesi (Ay)"
                       value={deliveryDelay}
-                      onChange={(e) => setDeliveryDelay(Number(e.target.value))}
+                      onChange={(e) => setDeliveryDelay(e.target.value)}
                       type="number"
                       step="6"
                     />
@@ -278,7 +278,7 @@ export default function CalculatorPage() {
                 <FormInput
                   label="6 Aylık Artış (%)"
                   value={installmentIncrease}
-                  onChange={(e) => setInstallmentIncrease(Number(e.target.value))}
+                  onChange={(e) => setInstallmentIncrease(e.target.value)}
                   type="number"
                   step="0.5"
                 />

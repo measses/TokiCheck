@@ -1,0 +1,34 @@
+# Sosyal Konut App - robots.txt
+# https://sosyalkonut.app
+
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://sosyalkonut.app/sitemap.xml
+
+# Crawl-delay
+Crawl-delay: 1
+
+# Disallow private or unnecessary paths
+Disallow: /api/
+Disallow: /_next/
+Disallow: /admin/
+
+# Allow important pages
+Allow: /tr
+Allow: /en
+Allow: /tr/calculator
+Allow: /en/calculator
+Allow: /tr/faq
+Allow: /en/faq
+
+# Good bots
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /

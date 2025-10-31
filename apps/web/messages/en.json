@@ -1,7 +1,6 @@
 {
   "common": {
-    "appName": "TOKİCheck",
-    "tagline": "Rent → Installment decision support tool",
+    "appName": "Social Housing App",
     "calculate": "Calculate",
     "reset": "Reset",
     "share": "Share",
@@ -13,15 +12,23 @@
   "nav": {
     "home": "Home",
     "calculator": "Calculator",
-    "scenarios": "Scenarios",
-    "about": "About",
-    "language": "Language"
+    "faq": "FAQ"
   },
   "home": {
-    "hero": {
-      "title": "Should I Apply for TOKİ Housing?",
-      "subtitle": "Visualize installment increases, income balance, and rent-installment overlap with transparent tables and charts",
-      "cta": "Calculate Now"
+    "badge": "500 Thousand Social Housing Project",
+    "title": "Should I Apply for Social Housing?",
+    "subtitle": "Visualize installment increases, income balance, and rent-installment overlap with transparent tables and charts",
+    "calculateButton": "Calculate Now",
+    "timeline": {
+      "applications": "Applications",
+      "applicationsDate": "November 10 - December 19, 2025",
+      "lottery": "Lottery Draw",
+      "lotteryDate": "December 29, 2025 - February 27, 2026",
+      "delivery": "Delivery Start",
+      "deliveryDate": "March 2027"
+    },
+    "projectInfo": {
+      "title": "About the Project"
     },
     "features": {
       "title": "What Can You Calculate?",
@@ -49,7 +56,22 @@
       "downPayment": "With Down Payment",
       "comparing": "Comparing Options",
       "advisor": "Advisors/Content Creators"
+    },
+    "cta": {
+      "title": "Open Source and Free",
+      "description": "Social Housing App is an open-source project. You can review the code, contribute, and see transparent calculations.",
+      "calculate": "Start Calculating",
+      "github": "View on GitHub"
     }
+  },
+  "faq": {
+    "badge": "Frequently Asked Questions",
+    "title": "Everything About Social Housing",
+    "subtitle": "Common questions about the 500 Thousand Social Housing project, application process, and our calculation tool",
+    "ctaTitle": "Have Questions?",
+    "ctaDescription": "For more questions, you can refer to official sources or use our calculation tool to analyze your situation.",
+    "calculate": "Start Calculating",
+    "officialSite": "Official TOKİ Website"
   },
   "calculator": {
     "title": "Installment Calculator",
@@ -115,12 +137,9 @@
     }
   },
   "footer": {
-    "description": "Open-source decision support tool for TOKİ housing applicants",
-    "links": {
-      "github": "GitHub",
-      "docs": "Documentation",
-      "contribute": "Contribute"
-    },
-    "disclaimer": "This tool is for informational purposes. For official TOKİ data, visit toki.gov.tr"
+    "description": "Social Housing App - Open-source social housing decision support tool",
+    "disclaimer": "This tool is for informational purposes. For official data",
+    "and": "and",
+    "visit": "visit these websites."
   }
 }
