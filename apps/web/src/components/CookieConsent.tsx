@@ -32,10 +32,20 @@ export default function CookieConsent() {
   };
 
   const initializeAnalytics = () => {
-    // Update Google Analytics consent
+    // Update GTM consent mode
     if (typeof window !== 'undefined' && (window as any).gtag) {
       (window as any).gtag('consent', 'update', {
-        analytics_storage: 'granted'
+        'ad_storage': 'denied', // Reklam için hala red
+        'ad_user_data': 'denied',
+        'ad_personalization': 'denied',
+        'analytics_storage': 'granted' // Sadece analytics kabul
+      });
+
+      // GTM event push
+      (window as any).dataLayer = (window as any).dataLayer || [];
+      (window as any).dataLayer.push({
+        'event': 'cookie_consent_granted',
+        'consent_type': 'analytics'
       });
     }
   };
