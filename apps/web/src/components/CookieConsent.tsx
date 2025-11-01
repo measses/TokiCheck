@@ -4,8 +4,11 @@ import { useState, useEffect } from 'react';
 
 export default function CookieConsent() {
   const [showBanner, setShowBanner] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
+
     // Check if user has already made a choice
     const consent = localStorage.getItem('cookie-consent');
 
@@ -50,7 +53,7 @@ export default function CookieConsent() {
     }
   };
 
-  if (!showBanner) return null;
+  if (!mounted || !showBanner) return null;
 
   return (
     <div className="fixed bottom-0 left-0 right-0 z-50 p-4 bg-white border-t-2 border-gray-200 shadow-2xl animate-slide-up">

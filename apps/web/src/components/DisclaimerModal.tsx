@@ -4,8 +4,11 @@ import { useState, useEffect } from 'react';
 
 export default function DisclaimerModal() {
   const [showModal, setShowModal] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
+
     // Check if user has already seen the disclaimer
     const seen = localStorage.getItem('disclaimer-seen');
 
@@ -22,7 +25,7 @@ export default function DisclaimerModal() {
     setShowModal(false);
   };
 
-  if (!showModal) return null;
+  if (!mounted || !showModal) return null;
 
   return (
     <>
