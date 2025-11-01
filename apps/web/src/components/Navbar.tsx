@@ -2,11 +2,16 @@
 
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function Navbar({ locale }: { locale: string }) {
   const t = useTranslations('nav');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-gray-200 bg-white shadow-sm">
@@ -95,7 +100,7 @@ export default function Navbar({ locale }: { locale: string }) {
         </div>
 
         {/* Mobile Menu Dropdown */}
-        {isMenuOpen && (
+        {mounted && isMenuOpen && (
           <nav className="md:hidden mt-4 pb-4 border-t border-gray-200 pt-4 animate-slide-down">
             <div className="flex flex-col space-y-3">
               <Link
