@@ -2,12 +2,20 @@ import { Inter } from 'next/font/google';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
+import dynamic from 'next/dynamic';
 import { locales } from '@/i18n';
 import LocaleAttributes from './locale-attributes';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import CookieConsent from '@/components/CookieConsent';
-import DisclaimerModal from '@/components/DisclaimerModal';
+
+// Dynamic import to prevent SSR for these components
+const CookieConsent = dynamic(() => import('@/components/CookieConsent'), {
+  ssr: false,
+});
+
+const DisclaimerModal = dynamic(() => import('@/components/DisclaimerModal'), {
+  ssr: false,
+});
 
 const inter = Inter({ subsets: ['latin'] });
 
