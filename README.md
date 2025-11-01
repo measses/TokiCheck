@@ -1,4 +1,4 @@
-# TOKİCheck
+# SosyalKonutApp
 
 **"Kira → Taksit" karar destek ve senaryo simülatörü**
 
@@ -42,7 +42,7 @@ sağlar.
 ### 📦 Proje Yapısı
 
 ```
-TokiCheck/
+SosyalKonutApp/
 ├── apps/
 │   └── web/              # Next.js frontend (gelecekte eklenecek)
 ├── packages/
@@ -67,8 +67,8 @@ TokiCheck/
 
 ```bash
 # Repoyu klonlayın
-git clone https://github.com/measses/TokiCheck.git
-cd TokiCheck
+git clone https://github.com/measses/SosyalKonutApp.git
+cd SosyalKonutApp
 
 # Bağımlılıkları yükleyin
 npm install
@@ -91,7 +91,7 @@ npm run test:coverage
 
 TOKİCheck, Vercel'de tek tıkla deploy edilebilir:
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/measses/TokiCheck)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/measses/SosyalKonutApp)
 
 **Manuel Deployment:**
 1. GitHub repo'yu Vercel'e import edin
@@ -118,8 +118,8 @@ Detaylı deployment talimatları için [DEPLOYMENT.md](DEPLOYMENT.md) dosyasına
 ### 📊 Kullanım Örneği
 
 ```typescript
-import { calculateScenario } from '@tokicheck/engine';
-import { ScenarioConfig } from '@tokicheck/types';
+import { calculateScenario } from '@SosyalKonutApp/engine';
+import { ScenarioConfig } from '@SosyalKonutApp/types';
 
 const config: ScenarioConfig = {
   name: 'Benim Senaryom',
@@ -175,7 +175,7 @@ Bu proje [MIT License](LICENSE) altında lisanslanmıştır.
 
 ### 🙏 Teşekkürler
 
-Tüm [katkıda bulunanlara](https://github.com/measses/TokiCheck/graphs/contributors) teşekkürler!
+Tüm [katkıda bulunanlara](https://github.com/measses/SosyalKonutApp/graphs/contributors) teşekkürler!
 
 ---
 
@@ -211,8 +211,8 @@ TOKİCheck helps Turkish citizens considering TOKİ/Social Housing applications 
 
 ```bash
 # Clone the repository
-git clone https://github.com/measses/TokiCheck.git
-cd TokiCheck
+git clone https://github.com/measses/SosyalKonutApp.git
+cd SosyalKonutApp
 
 # Install dependencies
 npm install
@@ -235,7 +235,7 @@ npm run test:coverage
 
 Deploy TOKİCheck to Vercel with one click:
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/measses/TokiCheck)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/measses/SosyalKonutApp)
 
 **Manual Deployment:**
 1. Import GitHub repo to Vercel
@@ -263,14 +263,14 @@ This project is licensed under the [MIT License](LICENSE).
 
 ### 🙏 Acknowledgments
 
-Thanks to all [contributors](https://github.com/measses/TokiCheck/graphs/contributors)!
+Thanks to all [contributors](https://github.com/measses/SosyalKonutApp/graphs/contributors)!
 
 ---
 
 ## 📞 İletişim / Contact
 
-- **Issues**: [GitHub Issues](https://github.com/measses/TokiCheck/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/measses/TokiCheck/discussions)
+- **Issues**: [GitHub Issues](https://github.com/measses/SosyalKonutApp/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/measses/SosyalKonutApp/discussions)
 
 ---
 
