@@ -1,6 +1,6 @@
-# Contributing to TOKİCheck
+# Contributing to Sosyal Konut App
 
-First off, thank you for considering contributing to TOKİCheck! It's people like you that make TOKİCheck such a great tool for Turkish citizens evaluating their TOKİ housing options.
+First off, thank you for considering contributing to Sosyal Konut App! It's people like you that make Sosyal Konut App such a great tool for Turkish citizens evaluating their TOKİ housing options.
 
 ## 🌟 How Can I Contribute?
 
@@ -40,8 +40,8 @@ Enhancement suggestions are tracked as GitHub issues. When creating an enhanceme
 1. Fork the repository
 2. Clone your fork:
    ```bash
-   git clone https://github.com/YOUR-USERNAME/TokiCheck.git
-   cd TokiCheck
+   git clone https://github.com/YOUR-USERNAME/SosyalKonutApp.git
+   cd SosyalKonutApp
    ```
 
 3. Install dependencies:
@@ -57,7 +57,7 @@ Enhancement suggestions are tracked as GitHub issues. When creating an enhanceme
 ### Project Structure
 
 ```
-TokiCheck/
+SosyalKonutApp/
 ├── apps/
 │   └── web/              # Next.js application
 ├── packages/

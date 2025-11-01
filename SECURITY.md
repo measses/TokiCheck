@@ -11,7 +11,7 @@ We release patches for security vulnerabilities. Currently supported versions:
 
 ## Reporting a Vulnerability
 
-The TOKİCheck team takes security bugs seriously. We appreciate your efforts to responsibly disclose your findings.
+The Sosyal Konut App team takes security bugs seriously. We appreciate your efforts to responsibly disclose your findings.
 
 ### How to Report a Security Vulnerability
 
@@ -49,7 +49,7 @@ Please include the following information to help us better understand the nature
 
 ## Security Best Practices for Contributors
 
-When contributing to TOKİCheck, please follow these security practices:
+When contributing to Sosyal Konut App, please follow these security practices:
 
 ### Code Security
 
@@ -93,7 +93,7 @@ When contributing to TOKİCheck, please follow these security practices:
 
 ### Client-Side Calculations
 
-TOKİCheck performs financial calculations primarily on the client-side. Users should be aware:
+Sosyal Konut App performs financial calculations primarily on the client-side. Users should be aware:
 
 * Calculations are estimates and should not be considered financial advice
 * Results should be verified with official TOKİ sources

@@ -1,8 +1,8 @@
-# SosyalKonutApp
+# Sosyal Konut App
 
 **"Kira → Taksit" karar destek ve senaryo simülatörü**
 
-TOKİCheck, TOKİ/Sosyal Konut başvurusu düşünenlerin taksit artışları, gelir artışları, kira-taksit çakışma süresi, peşinat etkisi ve teslim gecikmesi gibi kritik değişkenleri basit, şeffaf grafik ve tablolarla görmesini sağlayan açık kaynak bir araçtır.
+Sosyal Konut App, TOKİ/Sosyal Konut başvurusu düşünenlerin taksit artışları, gelir artışları, kira-taksit çakışma süresi, peşinat etkisi ve teslim gecikmesi gibi kritik değişkenleri basit, şeffaf grafik ve tablolarla görmesini sağlayan açık kaynak bir araçtır.
 
 [English](#english) | [Türkçe](#türkçe)
 
@@ -12,7 +12,7 @@ TOKİCheck, TOKİ/Sosyal Konut başvurusu düşünenlerin taksit artışları, g
 
 ### 🎯 Amaç
 
-TOKİCheck, konut sahibi olmak isteyen vatandaşların:
+Sosyal Konut App, konut sahibi olmak isteyen vatandaşların:
 - Taksit artışlarını önceden görmesini
 - Gelir-taksit dengesini takip etmesini
 - Kira + taksit çakışma döneminin maliyetini hesaplamasını
@@ -89,7 +89,7 @@ npm run test:coverage
 
 ### 🚀 Deployment
 
-TOKİCheck, Vercel'de tek tıkla deploy edilebilir:
+Sosyal Konut App, Vercel'de tek tıkla deploy edilebilir:
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/measses/SosyalKonutApp)
 
@@ -183,7 +183,7 @@ Tüm [katkıda bulunanlara](https://github.com/measses/SosyalKonutApp/graphs/con
 
 ### 🎯 Purpose
 
-TOKİCheck helps Turkish citizens considering TOKİ/Social Housing applications to visualize and understand:
+Sosyal Konut App helps Turkish citizens considering TOKİ/Social Housing applications to visualize and understand:
 - Installment increases over time
 - Income-to-installment balance
 - Rent + installment overlap period costs
@@ -233,7 +233,7 @@ npm run test:coverage
 
 ### 🚀 Deployment
 
-Deploy TOKİCheck to Vercel with one click:
+Deploy Sosyal Konut App to Vercel with one click:
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/measses/SosyalKonutApp)
 

@@ -12,13 +12,13 @@
     "rent",
     "financial-planning"
   ],
-  "homepage": "https://github.com/measses/TokiCheck#readme",
+  "homepage": "https://github.com/measses/SosyalKonutApp#readme",
   "bugs": {
-    "url": "https://github.com/measses/TokiCheck/issues"
+    "url": "https://github.com/measses/SosyalKonutApp/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/measses/TokiCheck.git"
+    "url": "git+https://github.com/measses/SosyalKonutApp.git"
   },
   "license": "MIT",
   "author": "TOKİCheck Contributors",
