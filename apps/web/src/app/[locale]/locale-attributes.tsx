@@ -8,7 +8,9 @@ type LocaleAttributesProps = {
 
 export default function LocaleAttributes({ locale }: LocaleAttributesProps) {
   useEffect(() => {
-    document.documentElement.lang = locale;
+    if (typeof document !== 'undefined') {
+      document.documentElement.lang = locale;
+    }
   }, [locale]);
 
   return null;
