@@ -328,11 +328,17 @@ export default function CalculatorPage() {
       {/* Step 3: Results */}
       {currentStep === 'results' && result && (
         <div className="space-y-8">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-            <button onClick={() => setCurrentStep('details')} className="text-blue-600 hover:text-blue-800 flex items-center gap-2 font-medium">
-              ← Ayarları Değiştir
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-4 bg-gradient-to-r from-gray-50 to-blue-50/30 rounded-xl border border-gray-200">
+            <button
+              onClick={() => setCurrentStep('details')}
+              className="group flex items-center gap-2 font-semibold text-gray-700 hover:text-blue-600 transition-colors"
+            >
+              <svg className="w-5 h-5 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+              Ayarları Değiştir
             </button>
-            <div className="flex gap-2">
+            <div className="flex flex-wrap gap-3">
               <button
                 onClick={() => {
                   const housingInfo = selectedHousing
@@ -340,12 +346,16 @@ export default function CalculatorPage() {
                     : undefined;
                   exportToExcel(result, housingInfo);
                 }}
-                className="px-4 py-2 border rounded-lg hover:bg-green-50 hover:border-green-600 transition-colors flex items-center gap-2"
+                className="group relative px-5 py-2.5 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-xl font-semibold shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 overflow-hidden"
               >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                </svg>
-                Excel İndir
+                <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-20 transition-opacity"></div>
+                <div className="relative flex items-center gap-2">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  </svg>
+                  <span className="hidden sm:inline">Excel İndir</span>
+                  <span className="sm:hidden">Excel</span>
+                </div>
               </button>
               <button
                 onClick={() => {
@@ -354,12 +364,16 @@ export default function CalculatorPage() {
                     : undefined;
                   exportToPDF(result, housingInfo);
                 }}
-                className="px-4 py-2 border rounded-lg hover:bg-red-50 hover:border-red-600 transition-colors flex items-center gap-2"
+                className="group relative px-5 py-2.5 bg-gradient-to-r from-red-500 to-rose-600 text-white rounded-xl font-semibold shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 overflow-hidden"
               >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
-                </svg>
-                PDF İndir
+                <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-20 transition-opacity"></div>
+                <div className="relative flex items-center gap-2">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                  </svg>
+                  <span className="hidden sm:inline">PDF İndir</span>
+                  <span className="sm:hidden">PDF</span>
+                </div>
               </button>
             </div>
           </div>
