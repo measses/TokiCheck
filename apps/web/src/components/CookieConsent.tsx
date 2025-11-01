@@ -7,30 +7,41 @@ export default function CookieConsent() {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    // Mark as mounted first
     setMounted(true);
 
-    // Check if user has already made a choice
-    const consent = localStorage.getItem('cookie-consent');
+    // Only check localStorage AFTER component is mounted
+    const checkConsent = () => {
+      if (typeof window === 'undefined') return;
 
-    if (!consent) {
-      // Show banner after a short delay for better UX
-      setTimeout(() => {
-        setShowBanner(true);
-      }, 1000);
-    } else if (consent === 'accepted') {
-      // Initialize analytics if already accepted
-      initializeAnalytics();
-    }
+      const consent = localStorage.getItem('cookie-consent');
+
+      if (!consent) {
+        // Show banner after a short delay for better UX
+        setTimeout(() => {
+          setShowBanner(true);
+        }, 1000);
+      } else if (consent === 'accepted') {
+        // Initialize analytics if already accepted
+        initializeAnalytics();
+      }
+    };
+
+    checkConsent();
   }, []);
 
   const acceptCookies = () => {
-    localStorage.setItem('cookie-consent', 'accepted');
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('cookie-consent', 'accepted');
+    }
     setShowBanner(false);
     initializeAnalytics();
   };
 
   const rejectCookies = () => {
-    localStorage.setItem('cookie-consent', 'rejected');
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('cookie-consent', 'rejected');
+    }
     setShowBanner(false);
   };
 
@@ -53,7 +64,9 @@ export default function CookieConsent() {
     }
   };
 
-  if (!mounted || !showBanner) return null;
+  // Don't render anything until mounted to avoid hydration mismatch
+  if (!mounted) return null;
+  if (!showBanner) return null;
 
   return (
     <div className="fixed bottom-0 left-0 right-0 z-50 p-4 bg-white border-t-2 border-gray-200 shadow-2xl animate-slide-up">

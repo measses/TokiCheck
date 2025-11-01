@@ -7,25 +7,36 @@ export default function DisclaimerModal() {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    // Mark as mounted first
     setMounted(true);
 
-    // Check if user has already seen the disclaimer
-    const seen = localStorage.getItem('disclaimer-seen');
+    // Only check localStorage AFTER component is mounted
+    const checkDisclaimer = () => {
+      if (typeof window === 'undefined') return;
 
-    if (!seen) {
-      // Show modal after a short delay
-      setTimeout(() => {
-        setShowModal(true);
-      }, 500);
-    }
+      const seen = localStorage.getItem('disclaimer-seen');
+
+      if (!seen) {
+        // Show modal after a short delay
+        setTimeout(() => {
+          setShowModal(true);
+        }, 500);
+      }
+    };
+
+    checkDisclaimer();
   }, []);
 
   const closeModal = () => {
-    localStorage.setItem('disclaimer-seen', 'true');
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('disclaimer-seen', 'true');
+    }
     setShowModal(false);
   };
 
-  if (!mounted || !showModal) return null;
+  // Don't render anything until mounted to avoid hydration mismatch
+  if (!mounted) return null;
+  if (!showModal) return null;
 
   return (
     <>
